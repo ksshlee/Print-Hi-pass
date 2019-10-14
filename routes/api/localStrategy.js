@@ -4,32 +4,6 @@ var saltRounds = 10;
 var User = require('../../models/Users');
  
 module.exports = (passport) => {
-    // passport.use(new LocalStrategy({
-    //     usernameField: "id",
-    //     passwordField: "password",
-    // }, async (id, password, done) => {
-    //     try {
-    //         var exUser = await User.find({ where: { id } });
-    //         if(exUser) {
-    //             var result = await bcrypt.compareSync(password, exUser.passwordHash);
-    //             //var result = await bcrypt.compareSync(exUser.password.hash,password.hash);
-    //             if(result) {
-    //                 done(null, exUser);
-    //             }
-    //             else {
-    //                 done(null, false, { message: '비밀번호가 일치하지 않습니다.' });
-    //             }
-    //         }
-    //         else {
-    //             done(null, false, { message: '가입되지 않은 회원입니다.' });
-    //         }
-    //     }
-    //     catch(error) {
-    //         console.error(error);
-    //         done(error);
-    //     }
-    // }));
-
     passport.use(new LocalStrategy({
             usernameField: "id",
             passwordField: "password",

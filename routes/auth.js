@@ -7,9 +7,6 @@ var User = require('../models/Users');
  
 var router = express.Router();
 
-
-
-
 //회원가입 폼 검사
 function validSignupForm (form){
     var id = form.id || "";
@@ -78,7 +75,7 @@ router.post('/reg', isNotLoggedIn, async (req, res, next) => {
    if(err){
      // flash 설정은 나중에
      req.flash('danger', err);
-     return res.redirect('/register');
+     return res.redirect('/auth/reg');
    }
 
  // 가입된 유저인지 확인
@@ -121,7 +118,6 @@ await user.save();
 
    req.flash('success', "회원 가입 성공");
    res.redirect("/");
-
 });
  
 

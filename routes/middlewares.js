@@ -5,7 +5,6 @@ exports.isLoggedIn = (req, res, next) => {
         next();
     }
     else {
-        req.flash('fail', "로그인 필요");
         res.redirect('/page/login');
         //res.status(403).send('로그인 필요');
         
