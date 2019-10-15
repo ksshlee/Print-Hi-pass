@@ -75,7 +75,7 @@ router.post('/reg', isNotLoggedIn, async (req, res, next) => {
    if(err){
      // flash 설정은 나중에
      req.flash('danger', err);
-   //  return res.redirect('/auth/reg');    404 not found 떠서 수정
+   //  return res.redirect('/auth/reg');    404 not found
      return res.redirect('back'); 
    }
 
