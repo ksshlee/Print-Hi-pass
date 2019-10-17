@@ -6,6 +6,7 @@ var mongoose = require("mongoose");
 
 //schema
 var postSchema = mongoose.Schema({ // 1
+  // body -> content
     title:{type:String, required:true},
     content:{type:String},
     allblack:{type:String},
