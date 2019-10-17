@@ -1,15 +1,29 @@
 extends ../partials/layout
 
+block contenthead
+    style.
+            form{
+                text-align : center;
+                font-weight : bold;
+            }
+
 block content
 
-    h1 로그인
-    
     // 로그인 form
     form(method='post' action='/auth/log')
-        label(for='id') 아이디:
+        br
+        br
+        br
+        label(for='id') &nbsp; &nbsp; 아이디: &nbsp;
         input#name(type='text', placeholder='id' name='id')
-
-        label(for='password') 비밀번호:
+        br
+        br
+        label(for='password') 비밀번호: &nbsp;
         input#password(type='password' name='password')
-
-        button(type='submit') 로그인
+        br
+        br
+        button.btn.btn-info(type='submit') 로그인
+        br
+        br
+        br
+        br
