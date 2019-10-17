@@ -26,18 +26,53 @@ router.get("/new",function(req,res){
 })
 
 
+function validCreateForm (form){
+  var title = form.title || "";
+  var content = form.content || "";
+
+  if( !title ){
+    return "제목을 입력하세요";
+  }
+
+  if( !content ){
+    return "내용을 입력하세요";
+  }
+
+  return null;
+}
+
 //create
 router.post("/", async function(req,res){
   // console.log(req.body);
-  var color = (req.body.allblack == 'on') ? 'on' : 'off' ; //만약 color가 off 일때는 off 출력 on일때는 on 출력하는 상방향 연산자????! 암튼 그거임
+
+  // await new_post.save(function(err, data){
+  //   if(err){
+  //     res.redirect("/posts");
+  //   }
+  // });
+  // res.redirect("/posts");
+
+  var err = validCreateForm(req.body);
+  if (err){
+    req.flash('danger', err);
+    return res.redirect('back');
+  }
+
+  var color = (req.body.allblack == 'on') ? 'on' : 'off' ; 
+  //만약 color가 off 일때는 off 출력 on일때는 on 출력하는 상방향 연산자????! 암튼 그거임
   var side = (req.body.double_side == 'on') ? 'on' : 'off' ;
-  var new_post = new Post({title : req.body.title, body : req.body.body, allblack : color, double_side : side});  
-  await new_post.save(function(err, data){
-    if(err){
-      res.redirect("/posts");
-    }
+
+  var new_post = new Post({
+    title : req.body.title,
+    content : req.body.content,
+    allblack : color,
+    double_side : side
   });
+
+  await new_post.save();
+  req.flash('success', "글쓰기 성공");
   res.redirect("/posts");
+
 });
 
 
