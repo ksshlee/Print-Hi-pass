@@ -7,29 +7,38 @@ html
     <!--bootstrap-->
     link(rel='stylesheet' href='https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css' integrity='sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T' crossorigin='anonymous')
 
+
     style.
-      body{color: #FFF; background: #282828;}
-      #wrap {float: left; font-size: 20px; color: #FFF;}
-      #headertop {height: 80px; line-height: 40px; text-align: left}
-      #logo { width: 1000px; height: 200px; line-height: 200px; background: #c8c8c8; text-align: center}
-      #contents { width: 1000px; height: 700px; line-height: 200px; text-align: center}
-      #footer {height: 30px; line-height: 15px; text-align: center}
+      body{color: ; background: #e0e0e0; text-align : center;}
+      #wrap { width : 900px;  position : relative; left: 50%; margin-left: -450px; background: #fff;}
+      #headertop {height: 100px; line-height: 50px; text-align: right; background: #e0e0e0;}
+      #footer {height: 80px; line-height: 40px;  text-align: center; background: #e0e0e0;}
+      #contents {height: 20px; background:#fff;}
     block contenthead
+ 
   
   body
-    include nav.pug
-    if flashMessages
-      each texts, type in flashMessages
-        .container.fixed-top.mt-5
-          .alert.alert-dismissible.fade.show(class=`alert-${type}`)
-            each msg in texts
-              | #{msg} 
-            button.close(type='button', data-dismiss='alert', aria-label='close')
-              span(aria-hidden='true') &times;
-    block content
-    <!-- jquery, popper.js, bootstrap js-->
-    script(src='https://code.jquery.com/jquery-3.3.1.slim.min.js' integrity='sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo' crossorigin='anonymous')
-    script(src='https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js' integrity='sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1' crossorigin='anonymous')
-    script(src='https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js' integrity='sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM' crossorigin='anonymous')
+    #wrap
+      #headertop 
+      include logo.pug
+      include nav.pug
+      #contents
+      block content
+      <!-- jquery, popper.js, bootstrap js-->
+      script(src='https://code.jquery.com/jquery-3.3.1.slim.min.js' integrity='sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo' crossorigin='anonymous')
+      script(src='https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js' integrity='sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1' crossorigin='anonymous')
+      script(src='https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js' integrity='sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM' crossorigin='anonymous')
+      #contents
+      #footer 
 
-    
+      if flashMessages
+        each texts, type in flashMessages
+          .container.fixed-top.mt-5
+            .alert.alert-dismissible.fade.show(class=`alert-${type}`)
+              each msg in texts
+                | #{msg} 
+              button.close(type='button', data-dismiss='alert', aria-label='close')
+                span(aria-hidden='true') &times;
+
+
+  
