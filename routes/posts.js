@@ -27,6 +27,8 @@ router.get("/new",function(req,res){
 
 
 function validCreateForm (form){
+  // 글쓰기 폼 검사
+  // 제목이랑 내용이 비어있으면 오류
   var title = form.title || "";
   var content = form.content || "";
 
@@ -62,6 +64,7 @@ router.post("/", async function(req,res){
   //만약 color가 off 일때는 off 출력 on일때는 on 출력하는 상방향 연산자????! 암튼 그거임
   var side = (req.body.double_side == 'on') ? 'on' : 'off' ;
 
+  //에러 없으면 디비에 저장
   var new_post = new Post({
     title : req.body.title,
     content : req.body.content,
