@@ -6,6 +6,7 @@ var { isLoggedIn, isNotLoggedIn } = require('./middlewares');
 var User = require('../models/Users');
  
 var router = express.Router();
+var logauthenticate = false; // 로그인 확인용
 
 //회원가입 폼 검사
 function validSignupForm (form){
@@ -75,7 +76,8 @@ router.post('/reg', isNotLoggedIn, async (req, res, next) => {
    if(err){
      // flash 설정은 나중에
      req.flash('danger', err);
-     return res.redirect('/auth/reg');
+   //  return res.redirect('/auth/reg');    404 not found
+     return res.redirect('back'); 
    }
 
  // 가입된 유저인지 확인
@@ -139,16 +141,18 @@ router.post('/log', isNotLoggedIn, (req, res, next) => {
                 console.error(loginError);
                 return next(loginError);
             }
+            req.flash('success', "로그인 성공");
             console.log("hello");
             return res.redirect('/');
         });
     })(req, res, next)  //미들웨어 내의 미들웨어에는 (req, res, next)를 붙인다.
-});
+  });
  
 router.get('/logout', isLoggedIn, (req, res) => {
     req.logout();
     req.session.destroy();
     res.redirect('/');
+    console.log('logout')
 });
  
 module.exports = router;

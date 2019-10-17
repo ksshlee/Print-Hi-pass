@@ -1,26 +1,38 @@
 extends ../partials/layout
 
+block contenthead
+    style.
+            form{
+                text-align : center;
+                font-weight : bold;
+            }   
+
 block content
     .main.container
-        .row
-            .col-md-6.col-md-offset-3
-            h1.display-4.m-b-2 회원가입
-            
+        .row 
+            //글 위치 배정
+            .col-xs-7.col-md-5
+
             // 회원가입 form
             form(method='post' action='/auth/reg')
+                br
+                br
+                br
                 div.form-group
-                    label(for='id') 아이디:
+                    label(for='id') 아이디
                     input#name.form-control(type='text', placeholder='id' name='id')
                 div.form-group
-                    label(for='name') 이름:
+                    label(for='name') 이름
                     input#name.form-control(type='text', placeholder='name' name='name')
                 div.form-group
-                    label(for='email') 이메일:
+                    label(for='email') 이메일
                     input#email.form-control(type='email', placeholder='name@email.com' name='email')
                 div.form-group
-                    label(for='password') 비밀번호:
-                    input#password.form-control(type='password' name='password')
+                    label(for='password') 비밀번호
+                    input#password.form-control(type='password',placeholder='password' name='password')
                 div.form-group
-                    label(for='confirmpassword') 비밀번호 확인:
-                    input#confirmpassword.form-control(type='password' name='confirmpassword')
-                button.btn.btn-primary(type='submit') 회원가입
+                    label(for='confirmpassword') 비밀번호 확인
+                    input#confirmpassword.form-control(type='password',placeholder='password confirm' name='confirmpassword')
+                button.btn.btn-info(type='submit') 회원가입
+                br
+                br
