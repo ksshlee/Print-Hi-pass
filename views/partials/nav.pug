@@ -1,26 +1,82 @@
-nav.navbar.navbar-expand-lg.navbar-light.bg-light
-  button.navbar-toggler(type='button' data-toggle='collapse' data-target='#navbarNavDropdown' aria-controls='navbarNavDropdown' aria-expanded='false' aria-label='Toggle navigation')
-    span.navbar-toggler-icon
-  #navbarNavDropdown.collapse.navbar-collapse
-    ul.navbar-nav
-      li.nav-item.active
-        a.nav-link(href='/')
-          | 홈 
-          span.sr-only (current)
-      li.nav-item
-        a.nav-link(href='/manual') 메뉴얼
-      li.nav-item
-        a.nav-link(href='/page/join') 회원가입
-      li.nav-item
-        a.nav-link(href='/page/login') 로그인
-      li.nav-item
-        a.nav-link(href='/auth/logout') 로그아웃
-      li.nav-item.dropdown
-        a#navbarDropdownMenuLink.nav-link.dropdown-toggle(href='#' role='button' data-toggle='dropdown' aria-haspopup='true' aria-expanded='false')
-          | 인쇄실
-        .dropdown-menu(aria-labelledby='navbarDropdownMenuLink')
-          a.dropdown-item(href='/posts') 1공학관
-          a.dropdown-item(href='/posts') 3공학관
-          a.dropdown-item(href='/posts') 5공학관
-          a.dropdown-item(href='/posts') 명진당
-          a.dropdown-item(href='/posts') 차세대과학관
+
+head
+  style(type='text/css').
+    
+    #nav {  
+    width : 900px; 
+    height: 50px;  
+    color: #464646; 
+    background: #FFF;
+    border-top: 1px solid #CFCFCF; 
+    border-bottom: 1px solid #CFCFCF;
+    }
+
+    /*기본 설정 */
+    li, .dropdown, .ex {
+    list-style:none;
+    text-align:center;
+    float:left;
+    width:110px;
+
+    }
+
+    /*navbar 글씨체 */
+    a:link, a:visited {
+    color:#000;
+    font-weight:bold;
+    font-size:17px;
+    display:block;
+    height:48px;
+    line-height:25px;
+    }
+
+    a:hover, a:active, a:focus {
+    color:#f00; /* 커서가 올라갔을 때 빨강색*/
+    }
+
+    .dropdown .drop-menu  {
+    display:none;  /* 평상시에는 서브메뉴가 안보이게 하기 */
+    }
+
+    .dropdown:hover .drop-menu  {
+    display:block;   /* 마우스 커서 올리면 서브메뉴 보이게 하기 */
+    }
+
+    /* 서브메뉴 내려왔을 때 설정 */
+    .dropdown .drop-menu a{
+    background: rgb(256, 256, 256);
+    width:110px;
+    font-size:14px;
+    display:block;
+    height:45px;
+    padding:10px;
+    text-decoration;
+    border-left: 1px solid #C7C7C7; 
+    border-bottom: 1px solid #C7C7C7;
+    border-right: 1px solid #C7C7C7;
+    }
+
+
+body
+  #nav
+    div
+      ul.nav.justify-content-center
+        li.nav-item.active
+          a.nav-link(href='/') home
+        li.nav-item
+          a.nav-link(href='/manual') manual
+        .dropdown(aria-labelledby='navbarDropdownMenuLink')
+          a#navbarDropdownMenuLink.nav-link.dropdown-toggle(data-toggle='dropdown' href='#' role='button' aria-haspopup='true' aria-expanded='false') print
+            .drop-menu(aria-labelledby='navbarDropdownMenuLink')
+              a(href='/posts') 5공학관
+              a(href='/posts') 명진당 
+        
+        li.nav-item
+          a.nav-link(href='/page/login')   log in
+        li.nav-item
+          a.nav-link(href='/auth/logout')   log out
+        li.nav-item
+          a.nav-link(href='/page/join') sign up
+ 
+    
+

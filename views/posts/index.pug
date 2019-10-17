@@ -1,24 +1,20 @@
 extends ../partials/layout
+block contenthead
+    style.
+        div a{
+            text-align : center;
+            width : 200px;
+        }
 
 block content
-    div
-        a(href='/posts/new') 글쓰기
-    table
-        thead
-            tr
-                th 제목
-                th 내용
-
-        tbody       
-        each p in posts
-            tr
-                td=p.title
-                td=p.body
-                if p.allblack=="on" 
-                    td 흑백
-                else
-                    td 컬러
-                if p.double_side=="on"
-                    td 양면
-                else
-                    td 단면
+    .row 
+        //글 위치 배정
+        .col-xs-7.col-md-5
+        div
+            br
+            br
+            a.btn.btn-outline-dark(href='/posts/new') 인쇄물 예약하기 
+            br
+            a.btn.btn-outline-dark(href='/posts/board') 예약 현황보기 
+    br
+    br 

@@ -1,0 +1,20 @@
+extends ../partials/layout
+
+block content
+    table
+        thead
+            tr
+                th 내용
+        tbody       
+            each p in post
+                tr
+                td=p.title
+                td=p.body
+                if p.allblack=="on" 
+                    td 흑백
+                else
+                    td 컬러
+                if p.double_side=="on"
+                    td 양면
+                else
+                    td 단면

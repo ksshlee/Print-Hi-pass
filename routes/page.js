@@ -1,6 +1,6 @@
 var express = require('express');
 const { isLoggedIn, isNotLoggedIn } = require('./middlewares');
- 
+var logauthenticate = false;
 var router = express.Router();
  
 router.get('/profile', isLoggedIn, (req, res) => {//middlewares 에서 isAuthenticated가 true 면 render/// false면 다시 로그인창
@@ -16,7 +16,7 @@ router.get('/join', isNotLoggedIn, (req, res) => {//회원가입은 로그인하
 });
 
 router.get('/login', isNotLoggedIn, (req, res) => {
-    res.render('register/login')
+    res.render('register/login');
 })
  
 // router.get('/', (req, res, next) => {
