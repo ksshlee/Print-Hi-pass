@@ -65,14 +65,6 @@ app.use(session({
 }));
 
 
-app.use(flash()); // flash message를 사용할 수 있도록
-app.use(function(req, res, next) {
-  // res.locals.currentUser = req.user;  // passport는 req.user로 user정보 전달
-  res.locals.flashMessages = req.flash();
-  next();
-});
-
-
 //로그인 및 회원가입
 //app.use(morgan('dev'));
 app.use(express.static(path.join(__dirname, 'public')));
@@ -88,12 +80,16 @@ app.use(session({
         secure: false,
     },
 }));
-app.use(flash());
 app.use(passport.initialize());
 app.use(passport.session());
 
 
-
+app.use(flash()); // flash message를 사용할 수 있도록
+app.use(function(req, res, next) {
+  res.locals.currentUser = req.user;  // passport는 req.user로 user정보 전달
+  res.locals.flashMessages = req.flash();
+  next();
+});
 
 
 

@@ -5,9 +5,17 @@ var router=express.Router();
 var Post=require("../models/Post");
 var { isLoggedIn, isNotLoggedIn } = require('./middlewares');
 
-//Index
 
-router.get("/", isLoggedIn, function(req, res) {
+
+//Index
+router.get("/", isLoggedIn, function(req, res, next) {
+  key = req.query.key
+  if (key == "0"){
+    title="5공학관"
+  }
+  else if (key == "1") {
+    title="명진당"
+  }
   // var posts = await Post.find();
   //   // Post.find({})
   //   // .sort("-createdAt")
@@ -16,7 +24,7 @@ router.get("/", isLoggedIn, function(req, res) {
   //   //     
   //   // });
   //   console.log(posts);
-    res.render("posts/index");
+    res.render("posts/index",{title:title});
 });
 
 // New

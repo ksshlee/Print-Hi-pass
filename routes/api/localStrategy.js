@@ -14,7 +14,7 @@ module.exports = (passport) => {
                     // password = bcrypt.hashSync(password, saltRounds);
                     // var result = await bcrypt.compareSync(password, exUser.password);
                     //var result = await bcrypt.compareSync(exUser.password.hash,password.hash);
-                    if(bcrypt.compareSync(password, exUser.password)) {
+                    if(bcrypt.compareSync(password, exUser.password)) {                        
                         done(null, exUser);
                     }
                     else {
