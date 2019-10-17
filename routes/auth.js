@@ -105,6 +105,7 @@ router.post('/reg', isNotLoggedIn, async (req, res, next) => {
     return res.redirect('back');
   }
 
+  // 아이디가 admin이면 권한 1, 아니면 2
   var prm;
   if (req.body.id == "admin") prm = 1;
   else prm = 2;
