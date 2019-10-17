@@ -6,6 +6,7 @@ var { isLoggedIn, isNotLoggedIn } = require('./middlewares');
 var User = require('../models/Users');
  
 var router = express.Router();
+var logauthenticate = false; // 로그인 확인용
 
 //회원가입 폼 검사
 function validSignupForm (form){
