@@ -140,16 +140,18 @@ router.post('/log', isNotLoggedIn, (req, res, next) => {
                 console.error(loginError);
                 return next(loginError);
             }
+            req.flash('success', "로그인 성공");
             console.log("hello");
             return res.redirect('/');
         });
     })(req, res, next)  //미들웨어 내의 미들웨어에는 (req, res, next)를 붙인다.
-});
+  });
  
 router.get('/logout', isLoggedIn, (req, res) => {
     req.logout();
     req.session.destroy();
     res.redirect('/');
+    console.log('logout')
 });
  
 module.exports = router;

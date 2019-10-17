@@ -71,6 +71,7 @@ router.post("/", async function(req,res){
     allblack : color,
     double_side : side
   });
+  console.log(new_post);
 
   await new_post.save();
   req.flash('success', "글쓰기 성공");
