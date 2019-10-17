@@ -4,10 +4,12 @@ const Schema = mongoose.Schema;
 
 //schema
 var userSchema = Schema({
+    permission:{type:Number},
     id:{type:String, required:true},
     name:{type:String, required:true},
     password:{type:String, required:true},
-    email:{type:String,required:true}
+    email:{type:String, required:true},
+    phone:{type:String, required:true}
 }, {
     toJSON: { virtuals: true},
     toObject: {virtuals: true}

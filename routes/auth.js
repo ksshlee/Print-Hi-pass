@@ -11,12 +11,14 @@ var router = express.Router();
 function validSignupForm (form){
     var id = form.id || "";
     var name = form.name || "";
+    var phone = form.phone || "";
     var email = form.email || "";
     var password = form.password || "";
     var confirmpassword = form.confirmpassword || "";
     
     id = id.trim();
     name = name.trim();
+    phone = email.trim();
     email = email.trim();
     password = password.trim();
     confirmpassword = confirmpassword.trim();
@@ -27,6 +29,10 @@ function validSignupForm (form){
   
     if( !name ){
       return "유효한 이름을 입력하세요";
+    }
+
+    if( !phone ){
+      return "유효한 전화번호를 입력하세요";
     }
   
     if( !email ){
@@ -82,7 +88,13 @@ router.post('/reg', isNotLoggedIn, async (req, res, next) => {
  // 가입된 유저인지 확인
   var user = await User.findOne({email:req.body.email});
   if(user){
-    req.flash('danger', "중복된 사용자가 있습니다.");
+    req.flash('danger', "중복된 이메일이 있습니다.");
+    return res.redirect('back');
+  }
+
+  var phone = await User.findOne({phone:req.body.phone});
+  if (id){
+    req.flash('danger', "중복된 전화번호가 있습니다.");
     return res.redirect('back');
   }
 
@@ -93,11 +105,17 @@ router.post('/reg', isNotLoggedIn, async (req, res, next) => {
     return res.redirect('back');
   }
 
+  var prm;
+  if (req.body.id == "admin") prm = 1;
+  else prm = 2;
+
   // 스키마에 저장
   var user = new User({
+    permission : prm,
     id : req.body.id, 
-   name : req.body.name,
-   email : req.body.email
+    name : req.body.name,
+    phone : req.body.phone,
+    email : req.body.email
  });
 
   // 비밀번호 hash해서 저장
@@ -115,7 +133,7 @@ router.post('/reg', isNotLoggedIn, async (req, res, next) => {
   console.log(user);
 
 //  db에 저장
-await user.save();
+   await user.save();
 
    req.flash('success', "회원 가입 성공");
    res.redirect("/");
