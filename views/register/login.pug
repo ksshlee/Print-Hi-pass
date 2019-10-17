@@ -2,28 +2,36 @@ extends ../partials/layout
 
 block contenthead
     style.
-            form{
-                text-align : center;
-                font-weight : bold;
-            }
+        form{
+            text-align : center;
+            font-weight: bold; 
+            width : 200px;
+        }
+
 
 block content
+    .row 
+        //글 위치 배정
+        .col-xs-7.col-md-5
+        // 로그인 form
+        form(method='post' action='/auth/log')
+            div
+                br
+                //- h2 &nbsp; &nbsp; &nbsp;로그인
+                br
+                label(for='id') 아이디   &nbsp;
+                input#name.form-control(type='text', placeholder='id' name='id')
+            div
+                br
+                br
+                label(for='password') 비밀번호 &nbsp;
+                input#password.form-control(type='password' name='password')
+            div
+                br
+                br
+                button.btn.btn-info(type='submit') 로그인
+            br
+            br
+            br
+            br
 
-    // 로그인 form
-    form(method='post' action='/auth/log')
-        br
-        br
-        br
-        label(for='id') &nbsp; &nbsp; 아이디: &nbsp;
-        input#name(type='text', placeholder='id' name='id')
-        br
-        br
-        label(for='password') 비밀번호: &nbsp;
-        input#password(type='password' name='password')
-        br
-        br
-        button.btn.btn-info(type='submit') 로그인
-        br
-        br
-        br
-        br
