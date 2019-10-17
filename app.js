@@ -82,6 +82,9 @@ app.use(session({
 }));
 app.use(passport.initialize());
 app.use(passport.session());
+//파일 업로드
+app.use(express.static(path.join(__dirname, 'public'))); 
+app.use(express.static(path.join(__dirname, 'uploads')));
 
 
 app.use(flash()); // flash message를 사용할 수 있도록

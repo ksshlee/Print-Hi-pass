@@ -4,15 +4,10 @@ block content
     div
         br
         a(href='/posts') 뒤로가기
-    form(action='/posts', method='post')
+    form(action='/posts', method='post' enctype='multipart/form-data')
         div
             //- h3 새로운 예약
         fieldset
-            div
-                br
-                div
-                    input#title(type="text", name="title")
-                    label(for="title") &nbsp; 파일 업로드 
             div
                 label(for="allblack") 기본설정 = 컬러 , 체크시 흑백 &nbsp;
                     input#allblack(type="checkbox" name="allblack")
@@ -27,6 +22,10 @@ block content
                 label(for="body") 요청사항
                 div
                     textarea#body(name="body", cols="50", rows="5")
+            div
+                label(for='fileupload') 파일 업로드
+                    input#fileupload(type='file' name='photo')
+
             
                     
         div

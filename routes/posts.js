@@ -4,6 +4,32 @@ var express= require("express");
 var router=express.Router();
 var Post=require("../models/Post");
 var { isLoggedIn, isNotLoggedIn } = require('./middlewares');
+var multer = require('multer');
+
+
+//저장소, 파일 이름 설정
+const storage = multer.diskStorage({
+   destination(req, file, callback) { 
+     callback(null, 'uploads'); 
+    }, 
+    filename(req, file, callback) { 
+      let array = file.originalname.split('.'); 
+      array[0] = array[0] + '_'; 
+      array[1] = '.' + array[1]; 
+      array.splice(1, 0, Date.now().toString()); 
+      const result = array.join(''); 
+      console.log(result); 
+      callback(null, result); 
+    } 
+  });
+
+  const upload = multer({ 
+    storage, 
+    limits: { 
+      files: 10, 
+      fileSize: 1024 * 1024 * 1024, 
+    } 
+  });
 
 
 
@@ -51,12 +77,12 @@ router.get("/board",async function(req,res){
 function validCreateForm (form){
   // 글쓰기 폼 검사
   // 제목이랑 내용이 비어있으면 오류
-  var title = form.title || "";
+  //var title = form.title || "";
   var body = form.body || "";
 
-  if( !title ){
-    return "제목을 입력하세요";
-  }
+  // if( !title ){
+  //   return "제목을 입력하세요";
+  // }
 
   if( !body ){
     return "내용을 입력하세요";
@@ -66,15 +92,46 @@ function validCreateForm (form){
 }
 
 //create
-router.post("/", async function(req,res){
-  // console.log(req.body);
+router.post("/", upload.array('photo',1), async function(req,res){
+//파일 업로드
+try { 
+  const files = req.files; 
+  let originalName = ''; 
+  let fileName = ''; 
+  let mimeType = ''; 
+  let size = 0; 
+  if (Array.isArray(files)) { 
+    console.log(`files is array~`); 
+    
+    originalName = files[0].originalname; 
+    fileName = files[0].filename; 
+    mimeType = files[0].mimetype; 
+    size = files[0].size; 
+  
+  } else { 
+    console.log(`files is not array~`); 
+    originalName = files[0].originalname; 
+    fileName = files[0].filename; 
+    mimeType = files[0].mimetype; 
+    size = files[0].size; 
+  }
+  
+  console.log(`file inform : ${originalName}, ${fileName}, ${mimeType}, ${size}`); 
+  
+  // res.writeHead('200', { 
+  //   'Content-type': 'text/html;charset=utf8' 
+  // }); 
+  // res.write('<h3>upload success</h3>'); 
+  // res.write(`<p>original name = ${originalName}, saved name = ${fileName}<p>`); 
+  // res.write(`<p>mime type : ${mimeType}<p>`); 
+  // res.write(`<p>file size : ${size}<p>`); 
+  // res.end(); 
+} catch (err) { 
+  console.dir(err.stack); 
+}
 
-  // await new_post.save(function(err, data){
-  //   if(err){
-  //     res.redirect("/posts");
-  //   }
-  // });
-  // res.redirect("/posts");
+//여기까지
+
 
   var err = validCreateForm(req.body);
   if (err){
@@ -88,7 +145,7 @@ router.post("/", async function(req,res){
 
   //에러 없으면 디비에 저장
   var new_post = new Post({
-    title : req.body.title,
+    //title : req.body.title,
     content : req.body.content,
     allblack : color,
     double_side : side,
