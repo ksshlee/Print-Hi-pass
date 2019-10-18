@@ -76,9 +76,12 @@ router.get("/board",async function(req,res){
 
 function validCreateForm (form){
   // 글쓰기 폼 검사
-  // 제목이랑 내용이 비어있으면 오류
+  // 내용이랑 페이지수, 매수가 비어있으면 오류
+  // 페이지 수, 매수 숫자 아니면 오류
   //var title = form.title || "";
   var content = form.content || "";
+  var page = form.page || "";
+  var count = form.count || "";
 
   // if( !title ){
   //   return "제목을 입력하세요";
@@ -86,6 +89,20 @@ function validCreateForm (form){
 
   if( !content ){
     return "내용을 입력하세요";
+  }
+
+  if( !page ){
+    return "페이지수를 입력하세요";
+  }
+  else if (isNaN(page)){
+    return "페이지수를 숫자로 입력하세요";
+  }
+
+  if( !count ){
+    return "매수을 입력하세요";
+  }
+  else if (isNaN(count)){
+    return "매수를 숫자로 입력하세요";
   }
 
   return null;
@@ -139,9 +156,13 @@ try {
     return res.redirect('back');
   }
 
+  // console.log(req.body.page);
+  // console.log(req.body.count);
+
   var color = (req.body.allblack == 'on') ? 'on' : 'off' ; 
   //만약 color가 off 일때는 off 출력 on일때는 on 출력하는 상방향 연산자????! 암튼 그거임
   var side = (req.body.double_side == 'on') ? 'on' : 'off' ;
+
 
   //에러 없으면 디비에 저장
   var new_post = new Post({
@@ -149,6 +170,8 @@ try {
     content : req.body.content,
     allblack : color,
     double_side : side,
+    page : req.body.page,
+    count : req.body.count,
     time_frop : req.body.time_frop
   });
   console.log(new_post);
