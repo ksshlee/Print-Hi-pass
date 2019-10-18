@@ -1,8 +1,0 @@
-extends ../partials/layout
-
-block content
-    div
-        a(href="/posts") 뒤로가기
-        a(href="/posts/<%= post._id %>/edit") 수정
-        form(action="/posts/<%= post._id %>?_method=delete" method="post")
-        a(href="#") 삭제

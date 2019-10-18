@@ -6,16 +6,16 @@ block content
             tr
                 th 내용
         tbody       
-            each p in post
+            each d in docs
                 tr
-                td=p.title
-                td=p.content
-                if p.allblack=="on" 
+                td=d.title
+                td=d.content
+                if d.allblack=="on" 
                     td 흑백
                 else
                     td 컬러
-                if p.double_side=="on"
+                if d.double_side=="on"
                     td 양면
                 else
                     td 단면
-                td=p.time_frop
+                td=d.time_frop
