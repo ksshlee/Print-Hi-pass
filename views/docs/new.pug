@@ -3,9 +3,9 @@ extends ../partials/layout
 block content   
     div
         br
-        a(href='/posts') 뒤로가기
+        a(href='/docs') 뒤로가기
 
-    form(action='/posts', method='post' enctype='multipart/form-data')
+    form(action='/docs', method='post' enctype='multipart/form-data')
         div
             //- h3 새로운 예약
         fieldset
@@ -13,7 +13,7 @@ block content
             div
                 br
                 div
-                    label(for="page") 페이지 수 &nbsp;
+                    label(for="page") 전체 페이지 수 &nbsp;
                     input#page(type="text", name="page") 
 
             //총 매수 설정
@@ -26,10 +26,10 @@ block content
             <!--Radio box로 수정한 부분-->
             //색상 설정
             div 
-                label.radio.radio-inline(for="color_1") 흑백 
+                label.radio.radio-inline(for="color_1") 흑백 (50원) 
                     input#color_1(type="radio" name="colorchoice" value="black" checked)
             
-                label.radio.radio-inline(for="color_2") &nbsp;&nbsp;컬러 
+                label.radio.radio-inline(for="color_2") &nbsp;&nbsp;컬러 (100원) 
                     input#color_2(type="radio" name="colorchoice" value="color")
 
             //용지 방향 설정
@@ -42,10 +42,10 @@ block content
 
             //양면 설정
             div
-                label.radio.radio-inline(for="side_1") 단면  
+                label.radio.radio-inline(for="side_1") 단면 (50원) 
                     input#side_1(type="radio" name="sidechoice" value="one_side" checked)
                     
-                label.radio.radio-inline(for="side_2") &nbsp;&nbsp;양면 
+                label.radio.radio-inline(for="side_2") &nbsp;&nbsp;양면 (100원)
                     input#side_2(type="radio" name="sidechoice" value="double_side")
             br 
             

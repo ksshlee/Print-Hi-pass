@@ -1,10 +1,11 @@
-// routes/posts.js
-//models/Post관련 백앤드
+// routes/docs.js
+//models/Docs관련 백앤드
 var express= require("express");
 var router=express.Router();
-var Post=require("../models/Post");
+var Doc=require("../models/Docs");
 var { isLoggedIn, isNotLoggedIn } = require('./middlewares');
 var multer = require('multer');
+var errorCatcher = require('../lib/async-error'); 
 
 
 //저장소, 파일 이름 설정
@@ -50,26 +51,26 @@ router.get("/", isLoggedIn, function(req, res, next) {
   //   //     
   //   // });
   //   console.log(posts);
-    res.render("posts/index",{title:title});
+    res.render("docs/index",{title:title});
 });
 
 // New
 router.get("/new",function(req,res){
-    res.render("posts/new");
+    res.render("docs/new");
 })
 
 
 //pay
-router.get("/pay", function(req,res){
-    res.render("posts/pay")
-})
+router.get("/pay", errorCatcher(async(req,res,next) => {
+    res.render("docs/pay",{payment : req.query.payment});
+}));
 
 
 //board
 router.get("/board",async function(req,res){
-  var posts = await Post.find();
-  console.log(posts)
-  res.render("posts/board",{post:posts});
+  var docs = await Doc.find();
+  console.log(docs)
+  res.render("docs/board",{docs:docs});
 })
 
 
@@ -79,17 +80,18 @@ function validCreateForm (form){
   // 내용이랑 페이지수, 매수가 비어있으면 오류
   // 페이지 수, 매수 숫자 아니면 오류
   //var title = form.title || "";
-  var content = form.content || "";
+ // var content = form.content || "";
   var page = form.page || "";
   var count = form.count || "";
-
+  var time = form.time_frop || "";
   // if( !title ){
   //   return "제목을 입력하세요";
   // }
 
-  if( !content ){
-    return "내용을 입력하세요";
-  }
+  // if( !content ){
+  //   return "내용을 입력하세요";
+  // }
+
 
   if( !page ){
     return "페이지수를 입력하세요";
@@ -103,6 +105,10 @@ function validCreateForm (form){
   }
   else if (isNaN(count)){
     return "매수를 숫자로 입력하세요";
+  }
+
+  if (!time){
+    return "예약할 시간을 선택하세요"
   }
 
   return null;
@@ -163,23 +169,35 @@ try {
   //만약 color가 off 일때는 off 출력 on일때는 on 출력하는 상방향 연산자????! 암튼 그거임
   var side = (req.body.double_side == 'on') ? 'on' : 'off' ;
 
+  var total_pay = req.body.page * req.body.count;
+  if (color == 'on'){
+    total_pay = total_pay * 100;
+  }
+  else {
+    total_pay = total_pay * 50;
+  }
+
+  if (side == "on") total_pay = total_pay*2;
+
+  console.log(total_pay);
 
   //에러 없으면 디비에 저장
-  var new_post = new Post({
+  var new_doc = new Doc({
     //title : req.body.title,
+    author:req.user._id,
     content : req.body.content,
     allblack : color,
     double_side : side,
     page : req.body.page,
     count : req.body.count,
+    payment : total_pay,
     time_frop : req.body.time_frop
   });
-  console.log(new_post);
+  console.log(new_doc);
 
-  await new_post.save();
+ await new_doc.save();
   req.flash('success', "글쓰기 성공");
-  res.redirect("/posts/pay");
-
+  res.redirect("/docs/pay?payment="+new_doc.payment);
 });
 
 
