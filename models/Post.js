@@ -13,9 +13,12 @@ var postSchema = mongoose.Schema({ // 1
     double_side:{type:String},
     page:{type:Number, required:true},
     count:{type:Number, required:true},
-    // createdAt:{type:Date, default:Date.now}, // 2
-    // updatedAt:{type:Date},
+    colorchoice:{type:String},
+    direction:{type:String},
+    checkside:{type:String},
+    division:{type:Number},
     time_frop:{type:String}
+
   },{
     toObject:{virtuals:true} // 4
   });

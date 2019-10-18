@@ -4,10 +4,10 @@ var express= require("express");
 var router=express.Router();
 var Post=require("../models/Post");
 var { isLoggedIn, isNotLoggedIn } = require('./middlewares');
-var multer = require('multer');
+var multer = require('multer');//파일 업로드 관련
 
 
-//저장소, 파일 이름 설정
+//저장소, 파일 이름 설정 // 파일 업로드 관련
 const storage = multer.diskStorage({
    destination(req, file, callback) { 
      callback(null, 'uploads'); 
@@ -35,7 +35,7 @@ const storage = multer.diskStorage({
 
 //Index
 router.get("/", isLoggedIn, function(req, res, next) {
-  key = req.query.key
+  key = req.query.key//키값 받아서 확인
   if (key == "0"){
     title="5공학관"
   }
@@ -159,17 +159,46 @@ try {
   // console.log(req.body.page);
   // console.log(req.body.count);
 
-  var color = (req.body.allblack == 'on') ? 'on' : 'off' ; 
-  //만약 color가 off 일때는 off 출력 on일때는 on 출력하는 상방향 연산자????! 암튼 그거임
-  var side = (req.body.double_side == 'on') ? 'on' : 'off' ;
+
+  // var color = (req.body.color_1 == 'on') ? 'black' : 'color' ; 
+  // //만약 color가 off 일때는 off 출력 on일때는 on 출력하는 상방향 연산자????! 암튼 그거임
+  // var dir = (req.body.direction_1 == 'on') ? 'height' : 'width' ;
+  // var side = (req.body.side_1 == 'on') ? 'one_side' : 'double_side';
+
+
+
+  //radio 버튼 값 받아오는거
+  
+  var colorradio = req.name;
+  var color;
+  for(i =0; i< colorradio.length; i++){
+    if (colorradio[i].checked)
+      color = colorradio[i].value;
+  }
+
+  var directionradio = req.getElementsByName('directionchoice');
+  var dir;
+  for(i = 0; i<directionradio.length; i++){
+    if (directionradio[i].checked)
+      dir = directionradio[i].value;
+  }
+
+  var sideradio = req.getElementsByName('sidechoice');
+  var side;
+  for(i = 0; i<sideradio.length; i++){
+    if (sideradio[i].checked)
+      side = sideradio[i].value;
+  }
 
 
   //에러 없으면 디비에 저장
   var new_post = new Post({
     //title : req.body.title,
     content : req.body.content,
-    allblack : color,
-    double_side : side,
+    //allblack : color1,
+    colorchoice : color,
+    direction : dir,
+    checkside : side,
     page : req.body.page,
     count : req.body.count,
     time_frop : req.body.time_frop
