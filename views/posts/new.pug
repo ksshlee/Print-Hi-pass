@@ -9,10 +9,19 @@ block content
         div
             //- h3 새로운 예약
         fieldset
-            <!--인쇄물 쪽수 입력-->
-            
-            <!--총 몇부 인쇄인지 설정-->
+            //인쇄물 페이지 수 입력
+            div
+                br
+                div
+                    label(for="page") 페이지 수 &nbsp;
+                    input#page(type="text", name="page") 
 
+            //총 매수 설정
+            div
+                br
+                div
+                    label(for="count") 매 수 &nbsp;
+                    input#page(type="text", name="count")
 
             <!--Radio box로 수정한 부분-->
             //색상 설정

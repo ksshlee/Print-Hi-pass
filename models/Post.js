@@ -11,6 +11,8 @@ var postSchema = mongoose.Schema({ // 1
     content:{type:String},
     allblack:{type:String},
     double_side:{type:String},
+    page:{type:Number, required:true},
+    count:{type:Number, required:true},
     // createdAt:{type:Date, default:Date.now}, // 2
     // updatedAt:{type:Date},
     time_frop:{type:String}
