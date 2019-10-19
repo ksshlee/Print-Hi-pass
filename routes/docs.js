@@ -110,7 +110,7 @@ function validCreateForm (form){
   }
 
   if( !count ){
-    return "매수을 입력하세요";
+    return "매수를 입력하세요";
   }
   else if (isNaN(count)){
     return "매수를 숫자로 입력하세요";
