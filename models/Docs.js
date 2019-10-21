@@ -1,22 +1,23 @@
-//models Post.js
+//models Docs.js
 //게시판 형식 관련 백엔드 js
 
 var mongoose = require("mongoose");
-
+const Schema = mongoose.Schema;
 
 //schema
-var postSchema = mongoose.Schema({ // 1
+var docsSchema = Schema({ // 1
   // body -> content
     //title:{type:String, required:true},
+    auth:{type:Schema.Types.ObjectId, ref: 'User'},
     content:{type:String},
-    allblack:{type:String},
-    double_side:{type:String},
-    page:{type:Number, required:true},
-    count:{type:Number, required:true},
     colorchoice:{type:String},
     direction:{type:String},
     checkside:{type:String},
-    division:{type:Number},
+    page:{type:Number, required:true},
+    count:{type:Number, required:true},
+    payment:{type:Number},
+    // createdAt:{type:Date, default:Date.now}, // 2
+    // updatedAt:{type:Date},
     time_frop:{type:String}
 
   },{
@@ -47,8 +48,8 @@ var postSchema = mongoose.Schema({ // 1
 
   //model export
 
-  var Post =mongoose.model("post",postSchema);
-  module.exports  = Post;
+  var Doc =mongoose.model("docs",docsSchema);
+  module.exports  = Doc;
 
 
   // //functions

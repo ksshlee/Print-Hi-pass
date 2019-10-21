@@ -100,7 +100,7 @@ app.use(function(req, res, next) {
 //route 위치 중요
 var indexRouter = require('./routes/index');
 var usersRouter = require('./routes/users');
-var postsRouter = require('./routes/posts');//게시판
+var docsRouter = require('./routes/docs');//게시판
 var pageRouter = require('./routes/page');//로그인 및 회원가입
 var authRouter = require('./routes/auth');//로그인 회원가입
 
@@ -108,7 +108,7 @@ var authRouter = require('./routes/auth');//로그인 회원가입
 
 app.use('/', indexRouter);
 app.use('/users', usersRouter);
-app.use('/posts', postsRouter);//게시판 
+app.use('/docs', docsRouter);//게시판 
 app.use('/page', pageRouter);//로그인 및 회원가입
 app.use('/auth', authRouter);//로그인 및 회원가입
 

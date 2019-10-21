@@ -1,10 +1,13 @@
-// routes/posts.js
-//models/Post관련 백앤드
+// routes/docs.js
+//models/Docs관련 백앤드
 var express= require("express");
 var router=express.Router();
-var Post=require("../models/Post");
+var Doc=require("../models/Docs");
 var { isLoggedIn, isNotLoggedIn } = require('./middlewares');
-var multer = require('multer');//파일 업로드 관련
+var multer = require('multer');
+var errorCatcher = require('../lib/async-error'); 
+var User = require('../models/Users');
+
 
 
 //저장소, 파일 이름 설정 // 파일 업로드 관련
@@ -50,26 +53,26 @@ router.get("/", isLoggedIn, function(req, res, next) {
   //   //     
   //   // });
   //   console.log(posts);
-    res.render("posts/index",{title:title});
+    res.render("docs/index",{title:title});
 });
 
 // New
 router.get("/new",function(req,res){
-    res.render("posts/new");
+    res.render("docs/new");
 })
 
 
 //pay
-router.get("/pay", function(req,res){
-    res.render("posts/pay")
-})
+router.get("/pay", errorCatcher(async(req,res,next) => {
+    res.render("docs/pay",{payment : req.query.payment});
+}));
 
 
 //board
 router.get("/board",async function(req,res){
-  var posts = await Post.find();
-  console.log(posts)
-  res.render("posts/board",{post:posts});
+  var docs = await Doc.find();
+  console.log(docs)
+  res.render("docs/board",{docs:docs});
 })
 
 
@@ -79,17 +82,18 @@ function validCreateForm (form){
   // 내용이랑 페이지수, 매수가 비어있으면 오류
   // 페이지 수, 매수 숫자 아니면 오류
   //var title = form.title || "";
-  var content = form.content || "";
+ // var content = form.content || "";
   var page = form.page || "";
   var count = form.count || "";
-
+  var time = form.time_frop || "";
   // if( !title ){
   //   return "제목을 입력하세요";
   // }
 
-  if( !content ){
-    return "내용을 입력하세요";
-  }
+  // if( !content ){
+  //   return "내용을 입력하세요";
+  // }
+
 
   if( !page ){
     return "페이지수를 입력하세요";
@@ -99,10 +103,14 @@ function validCreateForm (form){
   }
 
   if( !count ){
-    return "매수을 입력하세요";
+    return "매수를 입력하세요";
   }
   else if (isNaN(count)){
     return "매수를 숫자로 입력하세요";
+  }
+
+  if (!time){
+    return "예약할 시간을 선택하세요"
   }
 
   return null;
@@ -147,7 +155,7 @@ try {
   console.dir(err.stack); 
 }
 
-//여기까지
+//파일 업로드 여기까지
 
 
   var err = validCreateForm(req.body);
@@ -168,47 +176,99 @@ try {
 
 
   //radio 버튼 값 받아오는거
-  
-  var colorradio = req.name;
-  var color;
-  for(i =0; i< colorradio.length; i++){
-    if (colorradio[i].checked)
-      color = colorradio[i].value;
+  //v1
+  // var colorradio = req.body.colorchoice;
+  // var color;
+  // for(var i =0; i< colorradio.length; i++){
+  //   if (colorradio[i].checked)
+  //     color = colorradio[i].value;
+  //     break;
+  // }
+  // console.log('itistimetoshowyou')
+  // console.log(req.body.colorchoice)
+  // console.log(color);
+
+
+  // var directionradio = req.body.directionchoice;
+  // var dir;
+ 
+  // for(var i = 0; i<directionradio.length; i++){
+  //   if (directionradio[i].checked)
+  //     dir = directionradio[i].value;
+  //     break;
+  // }
+
+  // var sideradio = req.body.sidechoice;
+  // var side;
+  // for(var i = 0; i<sideradio.length; i++){
+  //   if (sideradio[i].checked)
+  //     side = sideradio[i].value;
+  //     break;
+  // }
+
+
+  // //v2
+  // var color = (req.body.colorchoice.value == 'black') ? 'black' : 'color' ; 
+  // //만약 color가 off 일때는 off 출력 on일때는 on 출력하는 상방향 연산자????! 암튼 그거임
+  // var dir = (req.body.directionchoice.value == 'height') ? 'height' : 'width' ;
+  // var side = (req.body.sidechoice.value == 'one_side') ? 'one_side' : 'double_side';
+
+  //v3
+  var colorselect = req.body.colorchoice;
+  var color;  
+  for(var i = 0; i < colorselect.length; i++) { 
+      if(colorselect[i].type="radio") { 
+          if(colorselect[i].checked) 
+            color = colorselect[i].value; 
+      } 
+  }
+  var directionelect = req.body.directionchoice;
+  var dir;  
+  for(var i = 0; i < directionelect.length; i++) { 
+      if(directionelect[i].type="radio") { 
+          if(directionelect[i].checked) 
+            ir = directionelect[i].value; 
+      } 
   }
 
-  var directionradio = req.getElementsByName('directionchoice');
-  var dir;
-  for(i = 0; i<directionradio.length; i++){
-    if (directionradio[i].checked)
-      dir = directionradio[i].value;
+  var sideselect = req.body.sidechoice;
+  var side;  
+  for(var i = 0; i < sideselect.length; i++) { 
+      if(sideselect[i].type="radio") { 
+          if(sideselect[i].checked) 
+            side = sideselect[i].value; 
+      } 
   }
 
-  var sideradio = req.getElementsByName('sidechoice');
-  var side;
-  for(i = 0; i<sideradio.length; i++){
-    if (sideradio[i].checked)
-      side = sideradio[i].value;
+  var total_pay = req.body.page * req.body.count;
+  if (req.body.colorchoice == 'color'){
+    total_pay = total_pay * 100;
+  }
+  else {
+    total_pay = total_pay * 50;
   }
 
+  if (req.body.sidechoice == "double_side") total_pay *= 2;
+
+  //var user = await User.findOne({id:id});
 
   //에러 없으면 디비에 저장
-  var new_post = new Post({
-    //title : req.body.title,
+  var new_doc = new Doc({
+    author : req.session.user_id,
     content : req.body.content,
-    //allblack : color1,
-    colorchoice : color,
-    direction : dir,
-    checkside : side,
+    colorchoice : req.body.colorchoice,
+    direction : req.body.directionchoice,
+    checkside : req.body.sidechoice,
     page : req.body.page,
     count : req.body.count,
+    payment : total_pay,
     time_frop : req.body.time_frop
   });
-  console.log(new_post);
+  console.log(new_doc);
 
-  await new_post.save();
+ await new_doc.save();
   req.flash('success', "글쓰기 성공");
-  res.redirect("/posts/pay");
-
+  res.redirect("/docs/pay?payment="+new_doc.payment);
 });
 
 

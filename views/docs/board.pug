@@ -1,0 +1,21 @@
+extends ../partials/layout
+
+block content
+    table
+        thead
+            tr
+                th 내용
+        tbody       
+            each d in docs
+                tr
+                    td=d.title
+                    td=d.content
+                    if d.allblack=="on" 
+                        td 흑백
+                    else
+                        td 컬러
+                    if d.double_side=="on"
+                        td 양면
+                    else
+                        td 단면
+                    td=d.time_frop
