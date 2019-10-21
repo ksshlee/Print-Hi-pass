@@ -11,6 +11,19 @@ block content
         div
             //- h3 새로운 예약
         fieldset
+            .row 
+                //글 위치 배정
+                .col-md-4
+                div
+                    //- label(for='fileupload') 파일 업로드  
+                    //-     input#fileupload(type='file' name='photo')
+                    .input-group.mb-3
+                        .custom-file
+                            input#fileupload.custom-file-input(type='file' name='photo')
+                            label.custom-file-label(for='fileupload' aria-describedby='fileupload') 파일 업로드
+
+
+
             //인쇄물 페이지 수 입력
             div
                 br
@@ -72,10 +85,6 @@ block content
                 label(for="content") 요청사항
                 div
                     textarea#content(name="content", cols="50", rows="5")
-            
-            div
-                label(for='fileupload') 파일 업로드  
-                    input#fileupload(type='file' name='photo')
             
         div
             br
