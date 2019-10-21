@@ -66,6 +66,15 @@ router.get("/pay", errorCatcher(async(req,res,next) => {
 }));
 
 
+//savedoc
+router.get("/savedoc", errorCatcher(async(req,res,next) => {
+  if (new_doc){
+    await new_doc.save();
+  }
+  res.redirect("../docs/board");
+}));
+
+
 //board
 router.get("/board",async function(req,res){
   var docs = await Doc.find();
@@ -101,7 +110,7 @@ function validCreateForm (form){
   }
 
   if( !count ){
-    return "매수을 입력하세요";
+    return "매수를 입력하세요";
   }
   else if (isNaN(count)){
     return "매수를 숫자로 입력하세요";
@@ -115,6 +124,7 @@ function validCreateForm (form){
 }
 
 //create
+var new_doc;
 router.post("/", upload.array('photo',1), async function(req,res){
 //파일 업로드
 try { 
@@ -182,7 +192,7 @@ try {
   console.log(total_pay);
 
   //에러 없으면 디비에 저장
-  var new_doc = new Doc({
+  new_doc = new Doc({
     //title : req.body.title,
     author:req.user._id,
     content : req.body.content,
@@ -195,7 +205,7 @@ try {
   });
   console.log(new_doc);
 
- await new_doc.save();
+// await new_doc.save();
   req.flash('success', "글쓰기 성공");
   res.redirect("/docs/pay?payment="+new_doc.payment);
 });

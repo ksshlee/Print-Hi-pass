@@ -27,14 +27,14 @@ block content
                 br
                 div
                     label(for="page") 전체 페이지 수 &nbsp;
-                    input#page(type="text", name="page") 
+                    input#page(type="text", name="page" style="width: 60px; height: 25px;")
 
-            //총 매수 설정
+                //총 매수 설정
             div
-                br
                 div
-                    label(for="count") 매 수 &nbsp;
-                    input#page(type="text", name="count")
+                    label(for="count") 매수 &nbsp; 
+                    input#count(type="text", name="count" style="width: 60px; height: 25px;")
+                br
 
             <!--Radio box로 수정한 부분-->
             //색상 설정
@@ -58,7 +58,7 @@ block content
                 label.radio.radio-inline(for="side_1") 단면 (50원) 
                     input#side_1(type="radio" name="sidechoice" value="one_side" checked)
                     
-                label.radio.radio-inline(for="side_2") &nbsp;&nbsp;양면 (100원)
+                label.radio.radio-inline(for="side_2") &nbsp;&nbsp;양면 (100원) 
                     input#side_2(type="radio" name="sidechoice" value="double_side")
             br 
             
