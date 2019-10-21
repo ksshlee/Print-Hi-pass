@@ -10,12 +10,16 @@ block content
                 tr
                     td=d.title
                     td=d.content
-                    if d.allblack=="on" 
-                        td 흑백
-                    else
+                    if d.colorchoice=="color" 
                         td 컬러
-                    if d.double_side=="on"
-                        td 양면
                     else
+                        td 흑백
+                    if d.sidechoice=="height"
+                        td 세로
+                    else
+                        td 가로
+                    if d.directionchoice=="one_side"
                         td 단면
+                    else
+                        td 양면
                     td=d.time_frop

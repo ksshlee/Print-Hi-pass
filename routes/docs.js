@@ -263,14 +263,8 @@ try {
   //var user = await User.findOne({id:id});
 
   //에러 없으면 디비에 저장
-<<<<<<< HEAD
   var new_doc = new Doc({
     author : req.session.user_id,
-=======
-  new_doc = new Doc({
-    //title : req.body.title,
-    author:req.user._id,
->>>>>>> fbc43378c25b6ce9b117b95a26a733acdbf5157e
     content : req.body.content,
     colorchoice : req.body.colorchoice,
     direction : req.body.directionchoice,
@@ -282,7 +276,7 @@ try {
   });
   console.log(new_doc);
 
-// await new_doc.save();
+  await new_doc.save();
   req.flash('success', "글쓰기 성공");
   res.redirect("/docs/pay?payment="+new_doc.payment);
 });
