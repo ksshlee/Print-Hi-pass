@@ -69,6 +69,8 @@ body
             .drop-menu(aria-labelledby='navbarDropdownMenuLink')
               a(href='/docs?key=0') 5공학관
               a(href='/docs?key=1') 명진당 
+        li.nav-item.active
+            a.nav-link(href='/booklookup') booklookup
         if currentUser
           li.nav-item
             a.nav-link(href='/auth/logout')   log out

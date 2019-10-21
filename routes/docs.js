@@ -37,7 +37,7 @@ const storage = multer.diskStorage({
 
 
 //Index
-router.get("/", isLoggedIn, function(req, res, next) {
+router.get("/", isLoggedIn, async function(req, res, next) {
   key = req.query.key//키값 받아서 확인
   if (key == "0"){
     title="5공학관"
@@ -46,14 +46,14 @@ router.get("/", isLoggedIn, function(req, res, next) {
     title="명진당"
   }
   // var posts = await Post.find();
-  //   // Post.find({})
-  //   // .sort("-createdAt")
-  //   // .exec(function(err,posts){
-  //   //     if(err)return  res.json(err);
-  //   //     
-  //   // });
+  //   Post.find({})
+  //   .sort("-createdAt")
+  //   .exec(function(err,posts){
+  //       if(err)return  res.json(err);
+        
+  //   });
   //   console.log(posts);
-    res.render("docs/index",{title:title});
+  //   res.render("docs/index",{title:title});
 });
 
 // New
@@ -172,82 +172,6 @@ try {
   if (err){
     req.flash('danger', err);
     return res.redirect('back');
-  }
-
-  // console.log(req.body.page);
-  // console.log(req.body.count);
-
-
-  // var color = (req.body.color_1 == 'on') ? 'black' : 'color' ; 
-  // //만약 color가 off 일때는 off 출력 on일때는 on 출력하는 상방향 연산자????! 암튼 그거임
-  // var dir = (req.body.direction_1 == 'on') ? 'height' : 'width' ;
-  // var side = (req.body.side_1 == 'on') ? 'one_side' : 'double_side';
-
-
-
-  //radio 버튼 값 받아오는거
-  //v1
-  // var colorradio = req.body.colorchoice;
-  // var color;
-  // for(var i =0; i< colorradio.length; i++){
-  //   if (colorradio[i].checked)
-  //     color = colorradio[i].value;
-  //     break;
-  // }
-  // console.log('itistimetoshowyou')
-  // console.log(req.body.colorchoice)
-  // console.log(color);
-
-
-  // var directionradio = req.body.directionchoice;
-  // var dir;
- 
-  // for(var i = 0; i<directionradio.length; i++){
-  //   if (directionradio[i].checked)
-  //     dir = directionradio[i].value;
-  //     break;
-  // }
-
-  // var sideradio = req.body.sidechoice;
-  // var side;
-  // for(var i = 0; i<sideradio.length; i++){
-  //   if (sideradio[i].checked)
-  //     side = sideradio[i].value;
-  //     break;
-  // }
-
-
-  // //v2
-  // var color = (req.body.colorchoice.value == 'black') ? 'black' : 'color' ; 
-  // //만약 color가 off 일때는 off 출력 on일때는 on 출력하는 상방향 연산자????! 암튼 그거임
-  // var dir = (req.body.directionchoice.value == 'height') ? 'height' : 'width' ;
-  // var side = (req.body.sidechoice.value == 'one_side') ? 'one_side' : 'double_side';
-
-  //v3
-  var colorselect = req.body.colorchoice;
-  var color;  
-  for(var i = 0; i < colorselect.length; i++) { 
-      if(colorselect[i].type="radio") { 
-          if(colorselect[i].checked) 
-            color = colorselect[i].value; 
-      } 
-  }
-  var directionelect = req.body.directionchoice;
-  var dir;  
-  for(var i = 0; i < directionelect.length; i++) { 
-      if(directionelect[i].type="radio") { 
-          if(directionelect[i].checked) 
-            ir = directionelect[i].value; 
-      } 
-  }
-
-  var sideselect = req.body.sidechoice;
-  var side;  
-  for(var i = 0; i < sideselect.length; i++) { 
-      if(sideselect[i].type="radio") { 
-          if(sideselect[i].checked) 
-            side = sideselect[i].value; 
-      } 
   }
 
   var total_pay = req.body.page * req.body.count;

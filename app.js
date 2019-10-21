@@ -103,7 +103,7 @@ var usersRouter = require('./routes/users');
 var docsRouter = require('./routes/docs');//게시판
 var pageRouter = require('./routes/page');//로그인 및 회원가입
 var authRouter = require('./routes/auth');//로그인 회원가입
-
+var booklookupRouter = require('./routes/booklookup');//제본확인
 
 
 app.use('/', indexRouter);
@@ -111,6 +111,7 @@ app.use('/users', usersRouter);
 app.use('/docs', docsRouter);//게시판 
 app.use('/page', pageRouter);//로그인 및 회원가입
 app.use('/auth', authRouter);//로그인 및 회원가입
+app.use('/booklookup', booklookupRouter);//제본확인
 
 
 
