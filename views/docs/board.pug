@@ -1,6 +1,11 @@
 extends ../partials/layout
 
+block contenthead
+    script(src="/routes/docs.js")
+
+
 block content
+    h1= posts
     table
         thead
             tr

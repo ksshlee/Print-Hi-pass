@@ -7,7 +7,7 @@ var { isLoggedIn, isNotLoggedIn } = require('./middlewares');
 var multer = require('multer');
 var errorCatcher = require('../lib/async-error'); 
 var User = require('../models/Users');
-
+var posts =[];//배열 선언
 
 
 //저장소, 파일 이름 설정 // 파일 업로드 관련
@@ -45,15 +45,19 @@ router.get("/", isLoggedIn, async function(req, res, next) {
   else if (key == "1") {
     title="명진당"
   }
-  // var posts = await Post.find();
-  //   Post.find({})
-  //   .sort("-createdAt")
-  //   .exec(function(err,posts){
-  //       if(err)return  res.json(err);
+  var posts = await Doc.find();
+    Doc.find({})
+    .sort("time_frop")
+    .exec(function(err,posts){
+        if(err)return  res.json(err);
         
-  //   });
-  //   console.log(posts);
-  //   res.render("docs/index",{title:title});
+    })
+  console.log('====================')
+  console.log('this is posts log')
+  console.log(posts);
+  console.log('====================')
+  
+  res.render("docs/index",{posts:posts});
 });
 
 // New
@@ -200,9 +204,11 @@ try {
   });
   console.log(new_doc);
 
+  posts.push({content: req.content,colorchoice: req.body.colorchoice, sidechoice:req.body.sidechoice, direction: req.body.directionchoice, page:req.body.page, count:req.body.count ,time_frop:req.body.time_frop, pay:total_pay});
   await new_doc.save();
   req.flash('success', "글쓰기 성공");
   res.redirect("/docs/pay?payment="+new_doc.payment);
+  
 });
 
 
