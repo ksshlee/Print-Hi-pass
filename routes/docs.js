@@ -52,10 +52,10 @@ router.get("/", isLoggedIn, async function(req, res, next) {
         if(err)return  res.json(err);
         
     })
-  console.log('====================')
-  console.log('this is posts log')
-  console.log(posts);
-  console.log('====================')
+  // console.log('====================')
+  // console.log('this is posts log')
+  // console.log(posts);
+  // console.log('====================')
   
   res.render("docs/index",{posts:posts});
 });
@@ -178,17 +178,25 @@ try {
     return res.redirect('back');
   }
 
-  var total_pay = req.body.page * req.body.count;
+
+  //총 가격 결제 알고리즘
+  var total_pay ;
   if (req.body.colorchoice == 'color'){
-    total_pay = total_pay * 100;
+    total_pay = Math.ceil(req.body.page/req.body.division) *100;
   }
   else {
-    total_pay = total_pay * 50;
+    total_pay = Math.ceil(req.body.page/req.body.division) *50;
   }
 
-  if (req.body.sidechoice == "double_side") total_pay *= 2;
+  console.log(Math.ceil(req.body.page/req.body.division))
+  
+  
 
   //var user = await User.findOne({id:id});
+
+
+  //division 값 불러오는거 확인
+  //console.log(req.body.division)
 
   //에러 없으면 디비에 저장
   var new_doc = new Doc({
@@ -199,6 +207,7 @@ try {
     checkside : req.body.sidechoice,
     page : req.body.page,
     count : req.body.count,
+    sheetpage : req.body.division,
     payment : total_pay,
     time_frop : req.body.time_frop
   });

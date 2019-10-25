@@ -57,10 +57,10 @@ block content
 
             //양면 설정
             div
-                label.radio.radio-inline(for="side_1") 단면 (50원) 
+                label.radio.radio-inline(for="side_1") 단면
                     input#side_1(type="radio" name="sidechoice" value="one_side" checked)
                     
-                label.radio.radio-inline(for="side_2") &nbsp;&nbsp;양면 (100원) 
+                label.radio.radio-inline(for="side_2") &nbsp;&nbsp;양면
                     input#side_2(type="radio" name="sidechoice" value="double_side")
             br 
             
@@ -68,7 +68,7 @@ block content
             <!--시트당 페이지 수-->
             div
                 label(for='division') 시트당 페이지 수 
-                    select#division
+                    select#division(name='division')
                         option(value='1' selected='') 1
                         option(value='2') 2
                         option(value='4') 4

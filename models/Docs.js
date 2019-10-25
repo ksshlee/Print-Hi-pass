@@ -16,6 +16,7 @@ var docsSchema = Schema({ // 1
     page:{type:Number, required:true},
     count:{type:Number, required:true},
     payment:{type:Number},
+    sheetpage:{type:Number},
     // createdAt:{type:Date, default:Date.now}, // 2
     // updatedAt:{type:Date},
     time_frop:{type:String}
