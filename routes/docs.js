@@ -7,7 +7,8 @@ var { isLoggedIn, isNotLoggedIn } = require('./middlewares');
 var multer = require('multer');
 var errorCatcher = require('../lib/async-error'); 
 var User = require('../models/Users');
-var posts =[];//배열 선언
+// post 대신에 doc 써요~~
+var arr_doc =[];//배열 선언
 
 
 //저장소, 파일 이름 설정 // 파일 업로드 관련
@@ -45,10 +46,10 @@ router.get("/", isLoggedIn, async function(req, res, next) {
   else if (key == "1") {
     title="명진당"
   }
-  var posts = await Doc.find();
+  var arr_doc = await Doc.find();
     Doc.find({})
     .sort("time_frop")
-    .exec(function(err,posts){
+    .exec(function(err,arr_doc){
         if(err)return  res.json(err);
         
     })
@@ -57,7 +58,7 @@ router.get("/", isLoggedIn, async function(req, res, next) {
   // console.log(posts);
   // console.log('====================')
   
-  res.render("docs/index",{posts:posts});
+  res.render("docs/index",{arr_doc:arr_doc});
 });
 
 // New
@@ -199,7 +200,7 @@ try {
   //console.log(req.body.division)
 
   //에러 없으면 디비에 저장
-  var new_doc = new Doc({
+  new_doc = new Doc({
     author : req.session.user_id,
     content : req.body.content,
     colorchoice : req.body.colorchoice,
@@ -213,8 +214,8 @@ try {
   });
   console.log(new_doc);
 
-  posts.push({content: req.content,colorchoice: req.body.colorchoice, sidechoice:req.body.sidechoice, direction: req.body.directionchoice, page:req.body.page, count:req.body.count ,time_frop:req.body.time_frop, pay:total_pay});
-  await new_doc.save();
+  arr_doc.push({content: req.content,colorchoice: req.body.colorchoice, sidechoice:req.body.sidechoice, direction: req.body.directionchoice, page:req.body.page, count:req.body.count ,time_frop:req.body.time_frop, pay:total_pay});
+//  await new_doc.save();
   req.flash('success', "글쓰기 성공");
   res.redirect("/docs/pay?payment="+new_doc.payment);
   
