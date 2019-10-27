@@ -7,8 +7,57 @@ var { isLoggedIn, isNotLoggedIn } = require('./middlewares');
 var multer = require('multer');
 var errorCatcher = require('../lib/async-error'); 
 var User = require('../models/Users');
-// post 대신에 doc 써요~~
-var arr_doc =[];//배열 선언
+
+// node 구현
+function Node(auth,content,colorchoice,direction,checkside,page,payment,count,sheetpage,time_frop){
+  this.auth = auth;
+  this.content = content;
+  this.colorchoice = colorchoice;
+  this.direction = direction;
+  this.checkside = checkside;
+  this.page = page;
+  this.payment = payment;
+  this.count = count;
+  this.sheetpage = sheetpage;
+  this.time_frop = time_frop
+  this.next = null;
+}
+
+
+//linked list 구현
+function LinkedList(){
+  this.head = new Node("head");//처음 시작하는 노드
+  this.find = find;
+  this.append = append;
+  this.insert = insert;
+  this.remove = remove;
+  this.toString = toString;
+  this.findPrevious = findPrevious;
+}
+
+// //노드 추가
+ function append(auth,content,colorchoice,direction,checkside,page,payment,count,sheetpage,time_frop){
+  var newNode = new Node(auth,content,colorchoice,direction,checkside,page,payment,count,sheetpage,time_frop);
+  var current = this.head;
+  while(current.next != null){
+    current = current.next;
+  }
+  current.next = newNode;
+ }
+
+//연결 리스트 요소들 출력
+function toString() {
+  var str = '[';
+  var currNode = this.head;
+  while(currNode.next != null){
+    str += currNode.next.element+' ';
+    currNode = currNode.next;
+  }
+  return str+']';
+}
+
+
+
 
 
 //저장소, 파일 이름 설정 // 파일 업로드 관련
@@ -214,7 +263,14 @@ try {
   });
   console.log(new_doc);
 
-  arr_doc.push({content: req.content,colorchoice: req.body.colorchoice, sidechoice:req.body.sidechoice, direction: req.body.directionchoice, page:req.body.page, count:req.body.count ,time_frop:req.body.time_frop, pay:total_pay});
+
+
+  //노드 추가
+  var LinkedList = new LinkedList();
+  LinkedList.append(req.session.user_id,req.body.content,req.body.colorchoice,req.body.directionchoice,req.body.sidechoice,req.body.page,total_pay,req.body.count,req.body.division,req.body.time_frop);
+  
+  
+  
 //  await new_doc.save();
   req.flash('success', "글쓰기 성공");
   res.redirect("/docs/pay?payment="+new_doc.payment);
