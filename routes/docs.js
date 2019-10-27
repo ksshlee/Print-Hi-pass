@@ -35,7 +35,29 @@ function LinkedList(){
   this.findPrevious = findPrevious;
 }
 
-// //노드 추가
+// 노드 찾기
+function find(auth,time_frop) {
+  var currNode = this.head;
+  while(currNode.element != auth && currNode.element != time_frop) {
+      currNode = currNode.next;
+  }
+  return currNode;
+}
+
+
+// 이전 노드 찾기
+function findPrevious(auth,time_frop) {
+  var currNode = this.head;
+  while(currNode.next != null && currNode.next.element != auth && currNode.next.element != time_frop) {
+      currNode = currNode.next;
+  }
+  return currNode;
+}
+
+
+
+
+ //노드 추가
  function append(auth,content,colorchoice,direction,checkside,page,payment,count,sheetpage,time_frop){
   var newNode = new Node(auth,content,colorchoice,direction,checkside,page,payment,count,sheetpage,time_frop);
   var current = this.head;
@@ -44,6 +66,23 @@ function LinkedList(){
   }
   current.next = newNode;
  }
+
+ //노드 중간삽입
+function insert(auth,content,colorchoice,direction,checkside,page,payment,count,sheetpage,time_frop, auth,time_frop){
+  var newNode = new Node(auth,content,colorchoice,direction,checkside,page,payment,count,sheetpage,time_frop);
+  var current = this.find(auth,time_frop);//auth , timefrop 기준으로 찾기
+  newNode.next = current.next;//새로운노드가 최근노드 다음을 가르킴
+  current.next = newNode;
+}
+
+
+ //노드 삭제
+ function remove(auth,time_frop){
+   var preNode = this.findPrevious(auth,time_frop);//삭제할 노드 찾기
+   preNode.next = preNode.next.next;//삭제할 노드 다음 노드를 가르킴
+ }
+
+
 
 //연결 리스트 요소들 출력
 function toString() {
