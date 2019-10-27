@@ -144,7 +144,7 @@ try {
     console.log(`files is array~`); 
     
     originalName = files[0].originalname; 
-    fileName = files[0].filename; 
+    fileName = files[0].filename;
     mimeType = files[0].mimetype; 
     size = files[0].size; 
   
@@ -181,15 +181,15 @@ try {
 
 
   //총 가격 결제 알고리즘
-  var total_pay ;
+  var total_pay = req.body.page * req.body.count;
   if (req.body.colorchoice == 'color'){
-    total_pay = Math.ceil(req.body.page/req.body.division) *100;
+    total_pay = Math.ceil(total_pay/req.body.division) *100;
   }
   else {
-    total_pay = Math.ceil(req.body.page/req.body.division) *50;
+    total_pay = Math.ceil(total_pay/req.body.division) *50;
   }
 
-  console.log(Math.ceil(req.body.page/req.body.division))
+  console.log(Math.ceil(total_pay/req.body.division))
   
   
 
