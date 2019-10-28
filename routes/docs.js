@@ -23,7 +23,6 @@ function Node(auth,content,colorchoice,direction,checkside,page,payment,count,sh
   this.next = null;
 }
 
-
 //linked list 구현
 function LinkedList(){
   this.head = new Node("head");//처음 시작하는 노드
@@ -173,7 +172,9 @@ router.get("/savedoc", errorCatcher(async(req,res,next) => {
 //board
 router.get("/board",async function(req,res){
   var docs = await Doc.find();
-  console.log(docs)
+  //LinkedList = new LinkedList();
+  //LinkedList.append(docs.author,docs.content,docs.colorchoice,docs.direction,docs.checkside,docs.page,docs.payment,docs.count,docs.sheetpage,docs.time_frop);
+  //console.log(LinkedList)
   res.render("docs/board",{docs:docs});
 })
 
@@ -305,8 +306,8 @@ try {
 
 
   //노드 추가
-  var LinkedList = new LinkedList();
-  LinkedList.append(req.session.user_id,req.body.content,req.body.colorchoice,req.body.directionchoice,req.body.sidechoice,req.body.page,total_pay,req.body.count,req.body.division,req.body.time_frop);
+  // var LinkedList = new LinkedList();
+  // LinkedList.append(req.session.user_id,req.body.content,req.body.colorchoice,req.body.directionchoice,req.body.sidechoice,req.body.page,total_pay,req.body.count,req.body.division,req.body.time_frop);
   
   
   
