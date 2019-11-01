@@ -180,6 +180,7 @@ router.get("/board",async function(req,res){
 
 
 
+
 function validCreateForm (form){
   // 글쓰기 폼 검사
   // 내용이랑 페이지수, 매수가 비어있으면 오류
@@ -286,11 +287,12 @@ try {
 
 
   //division 값 불러오는거 확인
-  //console.log(req.body.division)
+ // console.log(req.user._id);
 
   //에러 없으면 디비에 저장
   new_doc = new Doc({
-    author : req.session.user_id,
+    //auth : req.session.user_id,
+    auth : req.user._id,
     content : req.body.content,
     colorchoice : req.body.colorchoice,
     direction : req.body.directionchoice,
@@ -315,6 +317,72 @@ try {
   req.flash('success', "글쓰기 성공");
   res.redirect("/docs/pay?payment="+new_doc.payment);
   
+});
+
+
+// view doc
+router.get("/board/:id", function(req, res){
+  Doc.findById(req.params.id, function(err, doc){
+    // console.log(req.params.id);
+    // console.log(doc.auth);
+    // console.log(req.user._id);
+    if(doc.auth != req.user._id){
+      req.flash('danger', '잘못된 접근입니다!');
+      return res.redirect('/docs/board');
+    }
+    return res.render('../views/docs/edit');
+  });
+
+});
+
+
+// router.get('/edit/:id', function(req, res){
+
+// });
+
+router.post('/edit/:id', function(req, res){
+
+  var err = validCreateForm(req.body);
+  if (err){
+    req.flash('danger', err);
+    return res.redirect('back');
+  }
+
+
+  //총 가격 결제 알고리즘
+  var total_pay = req.body.page * req.body.count;
+  if (req.body.colorchoice == 'color'){
+    total_pay = Math.ceil(total_pay/req.body.division) *100;
+  }
+  else {
+    total_pay = Math.ceil(total_pay/req.body.division) *50;
+  }
+
+
+  let doc = {};
+    //auth : req.session.user_id,
+    doc.auth = req.user._id;
+    doc.content = req.body.content;
+    doc.colorchoice = req.body.colorchoice;
+    doc.direction = req.body.directionchoice;
+    doc.checkside = req.body.sidechoice;
+    doc.page = req.body.page;
+    doc.count = req.body.count;
+    doc.sheetpage = req.body.division;
+    doc.payment = total_pay;
+    doc.time_frop = req.body.time_frop;
+
+  let up_doc = {_id:req.params.id};
+
+  Article.update(up_doc, doc, function(err){
+    if(err){
+      console.log(err);
+      return;
+    } else {
+      req.flash('success', '글 수정!');
+    //  res.redirect('/docs/board');
+    }
+  });
 });
 
 

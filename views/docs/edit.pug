@@ -4,17 +4,18 @@ block content
     div
         a(href='/docs') 뒤로가기
 
-    form(action='/docs/', method='post')
+   
         div
             h3 글수정
                 fieldset
                 div
-                    label(for="title") 제목
-                    div
-                        input#title(type="text", name="title")
+                    //-  label(for="title") 제목
+                    //- div
+                    //-     input#title(type="text", name="title")
                     div
                         label(for="content") 요청사항
                         div
                             textarea#content(name="content", cols="30", rows="10")
     div
+     form(action='/docs/', method='post')
         button(type='submit') 글올리기

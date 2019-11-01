@@ -1,0 +1,16 @@
+extends ../partials/layout
+
+block content
+    div
+        a(href='/docs') 뒤로가기
+
+    
+        div
+            h3 클릭한 글 여기다가 보여주세요
+           
+    
+        div
+        form(action='/edit/', method='post')
+            button(type='edit') 수정
+        form(action='/', method='post')
+            button(type='del') 삭제

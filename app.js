@@ -82,6 +82,12 @@ app.use(session({
 }));
 app.use(passport.initialize());
 app.use(passport.session());
+
+app.get('*', function(req, res, next){
+  res.locals.Users = req.Users || null;
+  next();
+});
+
 //파일 업로드
 app.use(express.static(path.join(__dirname, 'public'))); 
 app.use(express.static(path.join(__dirname, 'uploads')));
