@@ -320,6 +320,22 @@ try {
 });
 
 
+// router.get('/board/:id', function(req, res){
+//   Doc.findById(req.params.id, function(err, doc){
+//     User.findById(doc.auth, function(err, user){
+//       // console.log(article.room_maker);
+//       // console.log(article);
+//       res.render('doc', {
+//         doc:doc
+//       });
+//       console.log("id send!!");
+//     });
+//   });
+//   // console.log("i'm going authCheck");
+//   // authCheck(req, res);
+// });
+
+
 // view doc
 router.get("/board/:id", function(req, res){
   Doc.findById(req.params.id, function(err, doc){
@@ -330,7 +346,7 @@ router.get("/board/:id", function(req, res){
       req.flash('danger', '잘못된 접근입니다!');
       return res.redirect('/docs/board');
     }
-    return res.render('../views/docs/edit');
+    return res.render('../views/docs/edit',  { doc:doc});
   });
 
 });
@@ -340,7 +356,10 @@ router.get("/board/:id", function(req, res){
 
 // });
 
-router.post('/edit/:id', function(req, res){
+router.post('/board/:id', upload.array('photo',1), async function(req, res){
+  console.log("enter editing");
+  console.log(req.params.id);
+  console.log(req.body);
 
   var err = validCreateForm(req.body);
   if (err){
@@ -348,6 +367,34 @@ router.post('/edit/:id', function(req, res){
     return res.redirect('back');
   }
 
+  try { 
+    const files = req.files; 
+    let originalName = ''; 
+    let fileName = ''; 
+    let mimeType = ''; 
+    let size = 0; 
+    if (Array.isArray(files)) { 
+      console.log(`files is array~`); 
+      
+      originalName = files[0].originalname; 
+      fileName = files[0].filename;
+      mimeType = files[0].mimetype; 
+      size = files[0].size; 
+    
+    } else { 
+      console.log('files is not array~'); 
+      originalName = files[0].originalname; 
+      fileName = files[0].filename; 
+      mimeType = files[0].mimetype; 
+      size = files[0].size; 
+    }
+    
+    console.log(`file inform : ${originalName}, ${fileName}, ${mimeType}, ${size}`); 
+    
+  
+  } catch (err) { 
+    console.dir(err.stack); 
+  }
 
   //총 가격 결제 알고리즘
   var total_pay = req.body.page * req.body.count;
@@ -358,29 +405,28 @@ router.post('/edit/:id', function(req, res){
     total_pay = Math.ceil(total_pay/req.body.division) *50;
   }
 
-
   let doc = {};
-    //auth : req.session.user_id,
-    doc.auth = req.user._id;
-    doc.content = req.body.content;
-    doc.colorchoice = req.body.colorchoice;
-    doc.direction = req.body.directionchoice;
-    doc.checkside = req.body.sidechoice;
-    doc.page = req.body.page;
-    doc.count = req.body.count;
-    doc.sheetpage = req.body.division;
-    doc.payment = total_pay;
-    doc.time_frop = req.body.time_frop;
+  doc.content = req.body.content;
+  doc.colorchoice = req.body.colorchoice;
+  doc.direction = req.body.directionchoice;
+  doc.checkside = req.body.sidechoice;
+  doc.page = req.body.page;
+  doc.count = req.body.count;
+  doc.sheetpage = req.body.division;
+  doc.payment = total_pay;
+  doc.time_frop = req.body.time_frop;
+
+  console.log(doc);
 
   let up_doc = {_id:req.params.id};
 
-  Article.update(up_doc, doc, function(err){
+  Doc.update(up_doc, doc, function(err){
     if(err){
       console.log(err);
       return;
     } else {
       req.flash('success', '글 수정!');
-    //  res.redirect('/docs/board');
+      res.redirect('/docs/board');
     }
   });
 });

@@ -1,21 +1,91 @@
 extends ../partials/layout
+block contenthead
+    script(src="/routes/docs.js")
 
 block content
     div
-        a(href='/docs') 뒤로가기
+        //- a(href='/docs') 뒤로가기
 
    
-        div
-            h3 글수정
-                fieldset
-                div
-                    //-  label(for="title") 제목
-                    //- div
-                    //-     input#title(type="text", name="title")
+        form#radio(action='/docs/board/'+doc._id, method='post' enctype='multipart/form-data')
+            div
+                //- h3 새로운 예약
+            fieldset
+                .row 
+                    //글 위치 배정
+                    .col-md-4
                     div
-                        label(for="content") 요청사항
-                        div
-                            textarea#content(name="content", cols="30", rows="10")
-    div
-     form(action='/docs/', method='post')
-        button(type='submit') 글올리기
+                        //- label(for='fileupload') 파일 업로드  
+                        //-     input#fileupload(type='file' name='photo')
+                        .input-group.mb-3
+                            .custom-file
+                                input#fileupload.custom-file-input(type='file' name='photo')
+                                label.custom-file-label(for='fileupload' aria-describedby='fileupload') 파일 업로드
+
+
+
+                //인쇄물 페이지 수 입력
+                div
+                    br
+                    div
+                        label(for="page") 전체 페이지 수 &nbsp;
+                        input#page(type="text", placeholder=doc.page, name="page" style="width: 60px; height: 25px;")
+
+                    //총 매수 설정
+                div
+                    div
+                        label(for="count") 매수 &nbsp; 
+                        input#count(type="text", placeholder=doc.count, name="count" style="width: 60px; height: 25px;")
+                    br
+
+                <!--Radio box로 수정한 부분-->
+                //색상 설정
+                div 
+                    label.radio.radio-inline(for="color_1") 흑백 (50원) 
+                        input#color_1(type="radio" name="colorchoice" value="black" checked)
+                
+                    label.radio.radio-inline(for="color_2") &nbsp;&nbsp;컬러 (100원) 
+                        input#color_2(type="radio" name="colorchoice" value="color")
+
+                //용지 방향 설정
+                div
+                    label.radio.radio-inline(for="direction_1") 세로 
+                        input#direction_1(type="radio" name="directionchoice" value="height" checked)
+                        
+                    label.radio.radio-inline(for="direction_2") &nbsp;&nbsp;가로 
+                        input#direction_2(type="radio" name="directionchoice" value="width")
+
+                //양면 설정
+                div
+                    label.radio.radio-inline(for="side_1") 단면
+                        input#side_1(type="radio" name="sidechoice" value="one_side" checked)
+                        
+                    label.radio.radio-inline(for="side_2") &nbsp;&nbsp;양면
+                        input#side_2(type="radio" name="sidechoice" value="double_side")
+                br 
+                
+
+                <!--시트당 페이지 수-->
+                div
+                    label(for='division') 시트당 페이지 수 
+                        select#division(name='division')
+                            option(value='1' selected='') 1
+                            option(value='2') 2
+                            option(value='4') 4
+                            option(value='8') 8
+                            option(value='16') 16
+                br
+
+                div
+                    label(for='time_frop') 수령 희망 시간 : 
+                        input#time_frop(type='time' name='time_frop' min='09:00' max='18:00')
+
+                div
+                    br
+                    label(for="content") 요청사항
+                    div
+                        textarea#content(name="content", cols="50", rows="5")
+
+                div
+                    br
+                    button.btn.btn-info(type='submit') submit
