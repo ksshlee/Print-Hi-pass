@@ -128,10 +128,10 @@ const storage = multer.diskStorage({
 router.get("/", isLoggedIn, async function(req, res, next) {
   key = req.query.key//키값 받아서 확인
   if (key == "0"){
-    title="5공학관"
+    title="welcome! 5공학관 인쇄실!"
   }
   else if (key == "1") {
-    title="명진당"
+    title="♥ 명진당 인쇄실입니다 ♥"
   }
   var arr_doc = await Doc.find();
     Doc.find({})
