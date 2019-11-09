@@ -301,6 +301,7 @@ try {
     count : req.body.count,
     sheetpage : req.body.division,
     payment : total_pay,
+    rsv_date : req.body.rsv_date,
     time_frop : req.body.time_frop
   });
   console.log(new_doc);
@@ -416,6 +417,7 @@ router.post('/board/:id', upload.array('photo',1), async function(req, res){
   doc.count = req.body.count;
   doc.sheetpage = req.body.division;
   doc.payment = total_pay;
+  doc.rsv_date = req.body.rsv_date;
   doc.time_frop = req.body.time_frop;
 
   console.log(doc);

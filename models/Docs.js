@@ -20,6 +20,7 @@ var docsSchema = Schema({ // 1
     sheetpage:{type:Number},
     // createdAt:{type:Date, default:Date.now}, // 2
     // updatedAt:{type:Date},
+    rsv_date:{type:String},
     time_frop:{type:String}
 
   },{

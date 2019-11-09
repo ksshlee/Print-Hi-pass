@@ -77,8 +77,11 @@ block content
                 br
 
                 div
+                    label(for='rsv_date') 날짜입력 : 
+                        input#rsv_date(type='date' name='rsv_date' value='2019-11-1' max='2019-12-30')
+                div
                     label(for='time_frop') 수령 희망 시간 : 
-                        input#time_frop(type='time', value=doc.time_proof, name='time_frop' min='09:00' max='18:00')
+                        input#time_frop(type='time', value=doc.time_prof, name='time_frop' min='09:00' max='18:00')
 
                 div
                     br
