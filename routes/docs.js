@@ -356,6 +356,8 @@ router.get("/board/:id", function(req, res){
 
 // });
 
+
+// edit
 router.post('/board/:id', upload.array('photo',1), async function(req, res){
   console.log("enter editing");
   console.log(req.params.id);
@@ -431,6 +433,11 @@ router.post('/board/:id', upload.array('photo',1), async function(req, res){
   });
 });
 
+//delete
+router.get('/delete/:id', async function(req, res, next){
+  await Doc.findByIdAndDelete(req.params.id);
+  res.redirect('/docs/board');
+});
 
 // // show
 // router.get("/:id", function(req, res){
