@@ -309,9 +309,6 @@ try {
   // var LinkedList = new LinkedList();
   // LinkedList.append(req.session.user_id,req.body.content,req.body.colorchoice,req.body.directionchoice,req.body.sidechoice,req.body.page,total_pay,req.body.count,req.body.division,req.body.time_frop);
   
-  
-  
-//  await new_doc.save();
   req.flash('success', "글쓰기 성공");
   res.redirect("/docs/pay?payment="+new_doc.payment);
   

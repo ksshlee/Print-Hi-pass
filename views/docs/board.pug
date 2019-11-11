@@ -21,7 +21,7 @@ block content
     h1= arr_doc
     table(border='1')
         br
-        tbody
+        thead
             tr
                 td No.
                 td 흑백/컬러
@@ -35,7 +35,7 @@ block content
                 td 수령
                 td 삭제
 
-
+        tbody
             each d, num in docs
                tr
                 td=num+1

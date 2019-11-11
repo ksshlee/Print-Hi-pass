@@ -21,6 +21,27 @@ block content
             br
             a.btn.btn-outline-dark(href='') 제본 예약하기
             br
-            a.btn.btn-outline-dark(href='') 제본 신청하기
+            a.btn.btn-outline-dark(href='booklookup/updatebook') 제본목록 올리기(관리자)
     br
     br 
+
+
+    table(border="1")
+        br
+        thead
+            tr
+                td No.
+                td 제목
+                td 교수님
+                td 가격
+                td 남은 제본 수
+
+        tbody
+            each b,num in books
+                tr
+                    td=num+1
+                    td=b.title
+                    td=b.professor
+                    td=b.price
+                    td=b.stock
+

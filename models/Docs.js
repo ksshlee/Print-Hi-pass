@@ -27,27 +27,6 @@ var docsSchema = Schema({ // 1
     toObject:{virtuals:true} // 4
   });
   
-  // // virtuals // 3
-  // postSchema.virtual("createdDate")
-  // .get(function(){
-  //   return getDate(this.createdAt);
-  // });
-  
-  // postSchema.virtual("createdTime")
-  // .get(function(){
-  //   return getTime(this.createdAt);
-  // });
-  
-  // postSchema.virtual("updatedDate")
-  // .get(function(){
-  //   return getDate(this.updatedAt);
-  // });
-  
-  // postSchema.virtual("updatedTime")
-  // .get(function(){
-  //   return getTime(this.updatedAt);
-  // });
-
 
   //model export
 
