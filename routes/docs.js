@@ -128,10 +128,10 @@ const storage = multer.diskStorage({
 router.get("/", isLoggedIn, async function(req, res, next) {
   key = req.query.key//키값 받아서 확인
   if (key == "0"){
-    title="5공학관"
+    title="welcome! 5공학관 인쇄실!"
   }
   else if (key == "1") {
-    title="명진당"
+    title="♥ 명진당 인쇄실입니다 ♥"
   }
   var arr_doc = await Doc.find();
     Doc.find({})
@@ -298,6 +298,7 @@ try {
     count : req.body.count,
     sheetpage : req.body.division,
     payment : total_pay,
+    rsv_date : req.body.rsv_date,
     time_frop : req.body.time_frop
   });
   console.log(new_doc);
@@ -353,6 +354,8 @@ router.get("/board/:id", function(req, res){
 
 // });
 
+
+// edit
 router.post('/board/:id', upload.array('photo',1), async function(req, res){
   console.log("enter editing");
   console.log(req.params.id);
@@ -411,6 +414,7 @@ router.post('/board/:id', upload.array('photo',1), async function(req, res){
   doc.count = req.body.count;
   doc.sheetpage = req.body.division;
   doc.payment = total_pay;
+  doc.rsv_date = req.body.rsv_date;
   doc.time_frop = req.body.time_frop;
 
   console.log(doc);
@@ -428,6 +432,11 @@ router.post('/board/:id', upload.array('photo',1), async function(req, res){
   });
 });
 
+//delete
+router.get('/delete/:id', async function(req, res, next){
+  await Doc.findByIdAndDelete(req.params.id);
+  res.redirect('/docs/board');
+});
 
 // // show
 // router.get("/:id", function(req, res){

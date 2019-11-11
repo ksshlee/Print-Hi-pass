@@ -1,14 +1,23 @@
-
-
 extends ../partials/layout
 
+block contenthead
+
+    link(href='https://fonts.googleapis.com/css?family=Do+Hyeon&display=swap&subset=korean' rel='stylesheet')
+    style.
+        p {
+        font-family: "Nanum Gothic", sans-serif;
+        font-size: 26px;
+        font-weight: 600;
+        color : #696868;
+        }
+
 block content
-    h1=title
+    br
+    p=title
     .row 
         //글 위치 배정
         .col-xs-7.col-md-5
         div
-            br
             br
             a.btn.btn-outline-dark(href='/docs/new') 인쇄물 예약하기 
             br
