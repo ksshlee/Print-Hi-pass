@@ -140,10 +140,7 @@ router.get("/", isLoggedIn, async function(req, res, next) {
         if(err)return  res.json(err);
         
     })
-  // console.log('====================')
-  // console.log('this is posts log')
-  // console.log(posts);
-  // console.log('====================')
+
   
   res.render("docs/index",{arr_doc:arr_doc});
 });
@@ -336,7 +333,7 @@ try {
 // });
 
 
-// view doc
+// edit
 router.get("/board/:id", function(req, res){
   Doc.findById(req.params.id, function(err, doc){
     // console.log(req.params.id);

@@ -13,10 +13,7 @@ block content
         tbody
             each d in docs
                 tr
-                    td=d.title
-                    b
                     a(href='/docs/board/'+d._id)= d.content
-                    //- td=d.content
                     if d.colorchoice=="color" 
                         td 컬러
                     else
