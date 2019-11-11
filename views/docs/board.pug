@@ -30,6 +30,7 @@ block content
                 td 날짜
                 td 시간
                 td 요청사항
+                td 수정
                 td 인쇄완료
                 td 수령
                 td 삭제
@@ -53,9 +54,9 @@ block content
                         
                     td=d.rsv_date
                     td=d.time_frop
-                    td 
-                        a(href='/docs/board/'+d._id)= d.content
-
+                    td= d.content
+                    td
+                        a(href='/docs/board/'+d._id) ㅁ
                     td 
                         input(type="checkbox")
                     td
