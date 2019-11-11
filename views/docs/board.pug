@@ -11,9 +11,11 @@ block content
             tr
                 th 내용
         tbody
-            each d in docs
-                tr
-                    a(href='/docs/board/'+d._id)= d.content
+
+        
+            each d, num in docs
+               tr
+                td=num+1
                     if d.colorchoice=="color" 
                         td 컬러
                     else
@@ -27,3 +29,12 @@ block content
                     else
                         td 양면
                     td=d.time_frop
+                    td 
+                        a(href='/docs/board/'+d._id)= d.content
+
+                    td 
+                        input(type="checkbox")
+                    td
+                        input(type="checkbox")
+                    td 
+                        input(type="button")

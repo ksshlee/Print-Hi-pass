@@ -54,27 +54,6 @@ function validSignupForm (form){
 
 //회원가입 포스트
 router.post('/reg', isNotLoggedIn, async (req, res, next) => {
-    // var { id, name ,email, password } = req.body;
-    // try {
-    //     var exUser = await User.find({ where: { id } });
-    //     if(exUser) {
-    //         req.flash('joinError', '이미 가입된 id입니다.');
-    //         return res.redirect('/join');
-    //     }
-    
-    //     var hash = await bcrypt.hash(password, 12);
-    //     await User.create({
-    //         id,
-    //         name,
-    //         email,
-    //         password: hash,
-    //     });
-    //     return res.redirect('/');
-    // } catch(error) {
-    //     console.error(error);
-    //     return next(error);
-    // }
-
   //데이터가 잘넘어오는지 확인을 위해서
   console.log(req.body);
    //회원 가입 폼 검사하고 req.body로 넘어옴

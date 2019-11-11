@@ -318,22 +318,6 @@ try {
 });
 
 
-// router.get('/board/:id', function(req, res){
-//   Doc.findById(req.params.id, function(err, doc){
-//     User.findById(doc.auth, function(err, user){
-//       // console.log(article.room_maker);
-//       // console.log(article);
-//       res.render('doc', {
-//         doc:doc
-//       });
-//       console.log("id send!!");
-//     });
-//   });
-//   // console.log("i'm going authCheck");
-//   // authCheck(req, res);
-// });
-
-
 // edit
 router.get("/board/:id", function(req, res){
   Doc.findById(req.params.id, function(err, doc){
