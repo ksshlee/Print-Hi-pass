@@ -20,10 +20,21 @@ block contenthead
 block content
     h1= arr_doc
     table(border='1')
-
+        br
         tbody
+            tr
+                td No.
+                td 흑백/컬러
+                td 가로/세로
+                td 양면/단면
+                td 날짜
+                td 시간
+                td 요청사항
+                td 인쇄완료
+                td 수령
+                td 삭제
 
-        
+
             each d, num in docs
                tr
                 td=num+1
@@ -51,3 +62,5 @@ block content
                         input(type="checkbox")
                     td 
                         input(type="button")
+    br
+    br
