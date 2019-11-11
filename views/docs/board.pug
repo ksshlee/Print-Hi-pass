@@ -2,21 +2,40 @@ extends ../partials/layout
 
 block contenthead
     script(src="/routes/docs.js")
+    style.
+        tr {
+        font-family: "Nanum Gothic", sans-serif;
+        font-size: 17px;
+        font-weight: 600;
+        
+        }
+        table{
+            width : 60%
+            height : 30px;
+            margin : auto;
+            text-align:center;
+        }
 
 
 block content
     h1= arr_doc
-    table
-        thead
-            tr
-                th 내용
+    table(border='1')
+
         tbody
+            tr
+                td No.
+                td 흑백/컬러
+                td 가로/세로
+                td 단면/양면
+                td 날짜
+                td 시간
+
             each d in docs
                 tr
                     td=d.title
                     b
                     a(href='/docs/board/'+d._id)= d.content
-                    //- td=d.content
+              
                     if d.colorchoice=="color" 
                         td 컬러
                     else
@@ -29,4 +48,9 @@ block content
                         td 단면
                     else
                         td 양면
+                        
+                    td=d.rsv_date
                     td=d.time_frop
+    br
+    br
+
