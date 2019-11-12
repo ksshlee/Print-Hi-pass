@@ -3,18 +3,22 @@ block contenthead
     script(src="/routes/booklookup.js")
 
 block content   
+
     form(action="/booklookup", method='post' enctype='multipart/form-data')
+        br
         div
-            label(for="title") 책 제목
+            label(for="title") 제본명&nbsp;
             input#title(type="text" name="title")
         div    
-            label(for="professor") 교수님
+            label(for="professor") 교수님&nbsp;
             input#professor(type="text" name="professor")
         div
-            label(for="price") 가격
+            label(for="price") 가격&nbsp;&nbsp;
             input#price(type="text" name="price")
         div 
-            label(for="stock") 개수
+            label(for="stock") 개수&nbsp;&nbsp;
             input#stock(type="text" name="stock")
+        br
         div
             button(type="submit") 제본등록
+        br
