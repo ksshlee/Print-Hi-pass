@@ -19,14 +19,5 @@ router.get('/login', isNotLoggedIn, (req, res) => {
     res.render('register/login');
 })
  
-// router.get('/', (req, res, next) => {
-//     res.render('home/main', {
-//         // title: 'NodeBird',
-//         // twits: [],
-//         // user: req.user,
-//         // loginError: req.flash('loginError'),
-//     });
-// });
- 
 module.exports = router;
 

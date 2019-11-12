@@ -245,14 +245,6 @@ try {
   
   console.log(`file inform : ${originalName}, ${fileName}, ${mimeType}, ${size}`); 
   
-  // res.writeHead('200', { 
-  //   'Content-type': 'text/html;charset=utf8' 
-  // }); 
-  // res.write('<h3>upload success</h3>'); 
-  // res.write(`<p>original name = ${originalName}, saved name = ${fileName}<p>`); 
-  // res.write(`<p>mime type : ${mimeType}<p>`); 
-  // res.write(`<p>file size : ${size}<p>`); 
-  // res.end(); 
 } catch (err) { 
   console.dir(err.stack); 
 }
@@ -279,6 +271,11 @@ try {
   console.log(Math.ceil(total_pay/req.body.division))
   
   
+  console.log('---------------');
+  console.log('게시판 글올린 body 확인');
+  console.log(req.body);
+  console.log('--------------');
+
 
   //var user = await User.findOne({id:id});
 
@@ -418,39 +415,6 @@ router.get('/delete/:id', async function(req, res, next){
   await Doc.findByIdAndDelete(req.params.id);
   res.redirect('/docs/board');
 });
-
-// // show
-// router.get("/:id", function(req, res){
-//     Post.findOne({_id:req.params.id}, function(err, post){
-//       if(err) return res.json(err);
-//       res.render("posts/show", {post:post});
-//     });
-//   });
   
-//   // edit
-//   router.get("/:id/edit", function(req, res){
-//     Post.findOne({_id:req.params.id}, function(err, post){
-//       if(err) return res.json(err);
-//       res.render("posts/edit", {post:post});
-//     });
-//   });
-  
-//   // update
-//   router.put("/:id", function(req, res){
-//     req.body.updatedAt = Date.now(); // 2
-//     Post.findOneAndUpdate({_id:req.params.id}, req.body, function(err, post){
-//       if(err) return res.json(err);
-//       res.redirect("/posts/"+req.params.id);
-//     });
-//   });
-  
-//   // destroy
-//   router.delete("/:id", function(req, res){
-//     Post.deleteOne({_id:req.params.id}, function(err){
-//       if(err) return res.json(err);
-//       res.redirect("/posts");
-//     });
-//   });
-  
-  module.exports = router;
+module.exports = router;
   
