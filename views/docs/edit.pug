@@ -1,7 +1,18 @@
 extends ../partials/layout
 block contenthead
     script(src="/routes/docs.js")
+    style.
+        
+        /*delete 버튼 디자인*/
+        .button.btn.btn-info {
+            margin : auto;
+            text-align : center;
+            font-size: 16px;
+            width: 75px;
+            height : 40px;
+        }
 
+        
 block content
     div
         //- a(href='/docs') 뒤로가기
@@ -14,6 +25,7 @@ block content
                 .row 
                     //글 위치 배정
                     .col-md-4
+                    br
                     div
                         //- label(for='fileupload') 파일 업로드  
                         //-     input#fileupload(type='file' name='photo')
@@ -92,4 +104,7 @@ block content
                 div
                     br
                     button.btn.btn-info(type='submit') submit
-                    a.button.btn.btn-info(href='/docs/delete/'+doc._id, type='delete', style='width:5rem') delete
+                    br
+                    br
+                    a.button.btn.btn-info(href='/docs/delete/'+doc._id, type='delete') delete
+                br

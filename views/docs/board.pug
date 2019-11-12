@@ -3,66 +3,71 @@ extends ../partials/layout
 block contenthead
     script(src="/routes/docs.js")
     style.
-        tr {
-        font-family: "Nanum Gothic", sans-serif;
-        font-size: 17px;
-        font-weight: 600;
-        
+
+        th{
+            font-size: 16px;
+            padding:4px;
+            line-height: 35px;
         }
-        table{
-            width : 60%
-            height : 30px;
+        .table.table-sm{
+            width : 700px;
             margin : auto;
-            text-align:center;
+            text-align : center;
+            font-family: "Nanum Gothic", sans-serif;
+            font-size: 14px;
+            font-weight: 600;
+            padding:8px;
+            line-height: 50px;
         }
 
 
 block content
-    h1= arr_doc
-    table(border='1')
-        br
-        thead
+    br
+    table.table.table-sm
+        thead.thead-light
             tr
-                td No.
-                td 흑백/컬러
-                td 가로/세로
-                td 양면/단면
-                td 날짜
-                td 시간
-                td 요청사항
-                td 수정
-                td 인쇄완료
-                td 수령
-                td 삭제
+            th(scope='col') NO.
+            th(scope='col') 흑백/컬러
+            th(scope='col') 가로/세로
+            th(scope='col') 양면/단면
+            th(scope='col') 수령날짜
+            th(scope='col') 수령시간
+            th(scope='col') 요청사항
+            th(scope='col') 수정
+
 
         tbody
-            each d, num in docs
-               tr
-                td=num+1
-                    if d.colorchoice=="color" 
-                        td 컬러
-                    else
-                        td 흑백
-                    if d.sidechoice=="height"
-                        td 세로
-                    else
-                        td 가로
-                    if d.directionchoice=="one_side"
-                        td 단면
-                    else
-                        td 양면
-                        
-                    td=d.rsv_date
-                    td=d.time_frop
-                    td= d.content
-                    td
-                        a(href='/docs/board/'+d._id) □
-                        
+        each d, num in docs
+            tr
+            td(scope="row")=num+1
+                if d.colorchoice=="color" 
+                    td 컬러
+                else
+                    td 흑백
+                if d.sidechoice=="height"
+                    td 세로
+                else
+                    td 가로
+                if d.directionchoice=="one_side"
+                    td 단면
+                else
+                    td 양면
+                    
+                td=d.rsv_date
+                td=d.time_frop
+                td= d.content
+                td
+                    a(href='/docs/board/'+d._id)  ✎
+                //✍ 뭐가 더 예쁜지 봐주쎄용
+                // 권한이 1 이면 ( admin) 버튼 생성 
+                if (prm == 1)
                     td 
                         input(type="checkbox")
+                    // 수령완료 버튼
                     td
                         input(type="checkbox")
+                    // 삭제 버튼
                     td 
                         input(type="button")
     br
-    br
+    

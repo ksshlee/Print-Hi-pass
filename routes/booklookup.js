@@ -24,7 +24,6 @@ router.get('/updatebook', function(req,res,next){
 //추가생성된 값을 디비에 저장
 var new_book
 router.post('/',async function(req,res){
-  console.log(req.body.title);//req.body를 못읽어옴!
 
   new_book = new Book({
     title : req.body.title,
