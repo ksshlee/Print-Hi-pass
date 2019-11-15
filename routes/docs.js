@@ -175,9 +175,6 @@ router.get("/board",async function(req,res){
   res.render("docs/board",{docs:docs});
 })
 
-
-
-
 function validCreateForm (form){
   // 글쓰기 폼 검사
   // 내용이랑 페이지수, 매수가 비어있으면 오류
@@ -296,7 +293,8 @@ try {
     sheetpage : req.body.division,
     payment : total_pay,
     rsv_date : req.body.rsv_date,
-    time_frop : req.body.time_frop
+    time_frop : req.body.time_frop,
+    file_name : req.body.fileupload
   });
   console.log(new_doc);
 
@@ -327,10 +325,20 @@ router.get("/board/:id", function(req, res){
 
 });
 
+//show
+router.get("/show/:id", function(req,res){
+  Doc.findById(req.params.id, function(err, doc){
+    // console.log(req.params.id);
+    // console.log(doc.auth);
+    // console.log(req.user._id);
+    if(doc.auth != req.user._id){
+      req.flash('danger', '잘못된 접근입니다!');
+      return res.redirect('/docs/board');
+    }
+    return res.render('../views/docs/show',  { doc:doc});
+  });
 
-// router.get('/edit/:id', function(req, res){
-
-// });
+});
 
 
 // edit

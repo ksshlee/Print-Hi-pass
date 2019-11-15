@@ -50,6 +50,7 @@ block content
                 th(scope='col') 교수명
                 th(scope='col') 가격
                 th(scope='col') 재고수
+                th(scope='col') 예약하기
         tbody
             each b,num in books
                 tr
@@ -57,7 +58,10 @@ block content
                     td=b.title
                     td=b.professor
                     td=b.price
-                    td=b.stock
+                    td=b.stock-b.num_rsv
+                    td
+                        //- a(href='/docs/board/'+d._id)  ✎
+                        a(href='/booklookup/reserve'+b._id) a
     br 
     .add
         .col-md-4.offset-md-1

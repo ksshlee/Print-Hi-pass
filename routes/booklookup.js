@@ -17,10 +17,6 @@ router.get('/updatebook', function(req,res,next){
 });
 
 
-
-
-
-
 //추가생성된 값을 디비에 저장
 var new_book
 router.post('/',async function(req,res){
@@ -29,7 +25,8 @@ router.post('/',async function(req,res){
     title : req.body.title,
     professor : req.body.professor,
     price : req.body.price,
-    stock : req.body.stock
+    stock : req.body.stock,
+    num_rsv : 0
   });
 
   await new_book.save();
@@ -41,6 +38,37 @@ router.post('/',async function(req,res){
 });
 
 
+
+//제본예약 창
+router.get('/reserve:id', function(req,res){
+  Book.findById(req.params.id, function(err, books){
+    return res.render('booklookup/reserve', {books:books});
+  });
+});
+
+router.post('/reserve:id', async function(req,res){
+  console.log('hi')
+  Book.findById(req.params.id, function(err, books){
+    console.log(typeof(books.num_rsv));
+    books.num_rsv+=req.body.count;
+    console.log(books.num_rsv);
+    
+    //num_rsv를 업데이트하는 작업
+    let book={};
+    book.num_rsv = books.num_rsv;
+    let up_book = {_id:books._id};
+    Book.update(up_book, book, function(err){
+      if(err){
+        console.log(err);
+        return;
+      } else {
+        req.flash('success', '예약 완료!!');
+      }
+    });
+  });
+  var books = await Book.find();
+  res.render('booklookup/index', {books:books});
+});
 
 
 module.exports = router;

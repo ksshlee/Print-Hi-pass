@@ -1,0 +1,12 @@
+extends ../partials/layout
+
+
+block content
+    h1 제본 예약
+    
+    form(action="/booklookup/reserve"+books._id method="post")
+        
+        label(for="count") 몇개요
+        input#count(type="text" name="count")
+        button(type="submit") submit
+
