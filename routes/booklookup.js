@@ -70,7 +70,8 @@ router.post('/reserve:id', async function(req,res){
     });
   });
   var books = await Book.find();
-  res.render('booklookup/index', {books:books});
+  // res.render('booklookup/index', {books:books});
+  res.redirect('/booklookup');
 });
 
 
