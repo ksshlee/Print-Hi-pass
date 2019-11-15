@@ -49,8 +49,11 @@ router.get('/reserve:id', function(req,res){
 router.post('/reserve:id', async function(req,res){
   console.log('hi')
   Book.findById(req.params.id, function(err, books){
-    console.log(typeof(books.num_rsv));
-    books.num_rsv+=req.body.count;
+    if(books.num_rsv+Number(req.body.count)>books.stock){
+      req.flash('fail', '잔여량보다 더 많은 양을 예약했어용');
+      return res.render('booklookup/reserve', {books:books});
+    }
+    books.num_rsv+=Number(req.body.count);
     console.log(books.num_rsv);
     
     //num_rsv를 업데이트하는 작업
