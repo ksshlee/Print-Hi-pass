@@ -146,19 +146,19 @@ router.get("/", isLoggedIn, async function(req, res, next) {
 });
 
 // New
-router.get("/new",function(req,res){
+router.get("/new", isLoggedIn, function(req,res){
     res.render("docs/new");
 })
 
 
 //pay
-router.get("/pay", errorCatcher(async(req,res,next) => {
+router.get("/pay", isLoggedIn, errorCatcher(async(req,res,next) => {
     res.render("docs/pay",{payment : req.query.payment});
 }));
 
 
 //savedoc
-router.get("/savedoc", errorCatcher(async(req,res,next) => {
+router.get("/savedoc",isLoggedIn,errorCatcher(async(req,res,next) => {
   if (new_doc){
     await new_doc.save();
   }
@@ -167,7 +167,7 @@ router.get("/savedoc", errorCatcher(async(req,res,next) => {
 
 
 //board
-router.get("/board",async function(req,res){
+router.get("/board",isLoggedIn,async function(req,res){
   var docs = await Doc.find();
   //LinkedList = new LinkedList();
   //LinkedList.append(docs.author,docs.content,docs.colorchoice,docs.direction,docs.checkside,docs.page,docs.payment,docs.count,docs.sheetpage,docs.time_frop);
@@ -311,7 +311,7 @@ try {
 
 
 // edit
-router.get("/board/:id", function(req, res){
+router.get("/board/:id",isLoggedIn, function(req, res){
   Doc.findById(req.params.id, function(err, doc){
     // console.log(req.params.id);
     // console.log(doc.auth);
@@ -326,7 +326,7 @@ router.get("/board/:id", function(req, res){
 });
 
 //show
-router.get("/show/:id", function(req,res){
+router.get("/show/:id",isLoggedIn, function(req,res){
   Doc.findById(req.params.id, function(err, doc){
     // console.log(req.params.id);
     // console.log(doc.auth);
@@ -342,7 +342,7 @@ router.get("/show/:id", function(req,res){
 
 
 // edit
-router.post('/board/:id', upload.array('photo',1), async function(req, res){
+router.post('/board/:id', upload.array('photo',1),async function(req, res){
   console.log("enter editing");
   console.log(req.params.id);
   console.log(req.body);
@@ -419,7 +419,7 @@ router.post('/board/:id', upload.array('photo',1), async function(req, res){
 });
 
 //delete
-router.get('/delete/:id', async function(req, res, next){
+router.get('/delete/:id', isLoggedIn, async function(req, res, next){
   await Doc.findByIdAndDelete(req.params.id);
   res.redirect('/docs/board');
 });
