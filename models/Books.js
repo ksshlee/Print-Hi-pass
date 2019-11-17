@@ -1,5 +1,4 @@
-//models Books.js
-//제본 관련 백엔드
+//제본 스키마
 var mongoose = require("mongoose");
 const Schema = mongoose.Schema;
 
