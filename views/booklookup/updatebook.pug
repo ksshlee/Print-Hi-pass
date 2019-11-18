@@ -1,21 +1,38 @@
 extends ../partials/layout
 block contenthead
     script(src="/routes/booklookup.js")
+    style.
 
-block content   
-    form(action="/booklookup" method='post')
-        fieldset
-            div
-                label(for="title") 책 제목
-                input#title(type="text" name="title")
-            div    
-                label(for="professor") 교수님
-                input#professor(type="text" name="professor")
-            div
-                label(for="price") 가격
-                input#price(type="text" name="price")
-            div 
-                label(for="stock") 개수
-                input#stock(type="text" name="stock")
-            div
-                button(type="submit") 제본등록
+        form {
+            text-align : center;
+            font-weight: bold; 
+            width : 200px;
+            float : none; 
+            margin : 0 auto;
+        }
+
+block content
+    .add
+        form(action="/booklookup" method='post')
+            fieldset
+                br
+                br
+                div
+                    label(for="title") 책 제목&nbsp;
+                    input#title(type="text" name="title")
+                br
+                div    
+                    label(for="professor") 교수명&nbsp;
+                    input#professor(type="text" name="professor")
+                br
+                div
+                    label(for="price") 가격&nbsp;
+                    input#price(type="text" name="price")
+                br
+                div 
+                    label(for="stock") 개수&nbsp;
+                    input#stock(type="text" name="stock")
+                br
+                div
+                    button.btn.btn-secondary(type="submit") 제본등록
+                br

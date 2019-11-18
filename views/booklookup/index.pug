@@ -24,22 +24,12 @@ block contenthead
             line-height: 50px;
        }
 
-        .buy {
-            margin: auto;
-            padding: 13px;
-            text-align: center;
+       .buy {
+           padding: 10px;
+       }
 
-        }
-
-        .btn.btn-sm.btn-light{
-            font-size: 17px;
-            width: 220px;
-            font-weight: 700;
-            color: #424242;
-            text-align: center;
-        }
-
-
+       
+        
 
 block content
     br
@@ -48,7 +38,18 @@ block content
     br
     //책 제목 검색 기능 추가하기
 
-    br
+    link(rel='stylesheet' href='https://use.fontawesome.com/releases/v5.1.0/css/all.css' integrity='sha384-lKuwvrZot6UHsBSfcMvOkWwlCMgc0TaWr+30HWe3a4ltaBwTZhyTEggF5tJv8tbt' crossorigin='anonymous')
+    .container
+        .row.justify-content-right
+            //.col-12.col-md-10.col-lg-60
+            .col-md-8.offset-md-5
+                .span12
+                form#custom-search-form.form-search.form-horizontal.pull-right
+                    .input-append.span12
+                    input.search-query(type='text' placeholder='Search')
+                    button.fas.fa-search.h4.text-body.btn.btn-outline-light
+                    
+
     //제본책 목록 표시
     table.table.table-sm
         thead.thead-dark
@@ -71,7 +72,8 @@ block content
                     td=b.price
                     td=b.stock-b.num_rsv
                     td
-                        a(href='/booklookup/reserve'+b._id) 🛒
+                        a.buy(href='/booklookup/reserve'+b._id) 🛒
+
                     if (user.permission == 1)
                         td
                             a(href='/booklookup/delete'+b._id) 삭제
