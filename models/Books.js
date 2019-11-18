@@ -8,7 +8,7 @@ var bookSchema = new mongoose.Schema({ // 1
     professor:{type:String},
     price:{type:Number},
     stock:{type:Number},
-    total_rsv:{type:Number}
+    num_rsv:{type:Number}
   },{
     toObject:{virtuals:true} // 4
   });

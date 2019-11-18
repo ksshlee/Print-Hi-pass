@@ -58,7 +58,7 @@ block content
                     td=b.title
                     td=b.professor
                     td=b.price
-                    td=b.stock
+                    td=b.stock-b.num_rsv
                     td
                         //- a(href='/docs/board/'+d._id)  ✎
                         a(href='/booklookup/reserve'+b._id) a

@@ -169,10 +169,11 @@ router.get("/savedoc",isLoggedIn,errorCatcher(async(req,res,next) => {
 //board
 router.get("/board",isLoggedIn,async function(req,res){
   var docs = await Doc.find().sort({'time_frop': 1});
+  var users = await User.find()
   //LinkedList = new LinkedList();
   //LinkedList.append(docs.author,docs.content,docs.colorchoice,docs.direction,docs.checkside,docs.page,docs.payment,docs.count,docs.sheetpage,docs.time_frop);
   //console.log(LinkedList)
-  res.render("docs/board",{docs:docs});
+  res.render("docs/board",{docs:docs,users:users});
 })
 
 function validCreateForm (form){
