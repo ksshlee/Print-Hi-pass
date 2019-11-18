@@ -4,6 +4,7 @@ const Schema = mongoose.Schema;
 
 //schema
 var bookSchema = new mongoose.Schema({ // 1
+    place:{type:String},
     title:{type:String},
     professor:{type:String},
     price:{type:Number},

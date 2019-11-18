@@ -21,6 +21,7 @@ router.get('/updatebook',isAdmin, function(req,res,next){
 var new_book
 router.post('/',isLoggedIn, async function(req,res){
   new_book = new Book({
+    place : req.body.place,
     title : req.body.title,
     professor : req.body.professor,
     price : req.body.price,
