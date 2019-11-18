@@ -172,7 +172,7 @@ router.get("/board",isLoggedIn,async function(req,res){
   //LinkedList = new LinkedList();
   //LinkedList.append(docs.author,docs.content,docs.colorchoice,docs.direction,docs.checkside,docs.page,docs.payment,docs.count,docs.sheetpage,docs.time_frop);
   //console.log(LinkedList)
-  res.render("docs/board",{docs:docs});
+  res.render("docs/board",{docs:docs, user:req.user});
 })
 
 function validCreateForm (form){

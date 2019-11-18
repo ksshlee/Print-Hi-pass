@@ -33,6 +33,11 @@ block content
             th(scope='col') 수령시간
             th(scope='col') 요청사항
             th(scope='col') 수정
+           
+                //- th(scope='col') 인쇄완료
+                //- th(scope='col') 수령완료
+                //- th(scope='col') 삭제
+            
 
 
         tbody
@@ -55,10 +60,10 @@ block content
                 td=d.time_frop
                 td=d.content
                 td
-                    a(href='/docs/board/'+d._id)  ✎
+                    a(href='/docs/board/'+d._id)  ✎ 
                 //✍ 뭐가 더 예쁜지 봐주쎄용
                 // 권한이 1 이면 ( admin) 버튼 생성 
-                if (prm == 1)
+                if (user.permission == 1)
                     td 
                         input(type="checkbox")
                     // 수령완료 버튼

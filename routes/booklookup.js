@@ -28,8 +28,6 @@ router.post('/',async function(req,res){
     professor : req.body.professor,
     price : req.body.price,
     stock : req.body.stock,
-    uid : null,
-    num_rsv : 0,
     total_rsv : 0
   });
 
