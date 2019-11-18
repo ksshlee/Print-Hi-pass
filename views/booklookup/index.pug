@@ -2,7 +2,7 @@ extends ../partials/layout
 
 block contenthead
 
-    link(href='https://fonts.googleapis.com/css?family=Nanum+Gothic:400,700,800&subset=korean' rel='stylesheet')
+    //link(href='https://fonts.googleapis.com/css?family=Nanum+Gothic:400,700,800&subset=korean' rel='stylesheet')
     style.
         p {
             font-family: "Nanum Gothic", sans-serif;
@@ -17,21 +17,31 @@ block contenthead
         }
 
        .table.table-sm {
-           width: 700px;
-           text-size: 14px;
-           font-family: "Nanum Gothic", sans-serif;
-           margin: auto;
-           text-align: center;
-           line-height: 30px;
-           padding: 8px;
+            width: 700px;
+            font-family: "Nanum Gothic", sans-serif;
+            margin: auto;
+            padding: 8px;
+            text-align: center;
+            font-size: 16px;
+            line-height: 50px;
        }
 
-        .btn.btn-sm.btn-light{
-           font-size: 17px;
-           width: 220px;
-           font-weight: 700;
-           color: #424242;
+        .buy {
+            margin: auto;
+            padding: 13px;
+            text-align: center;
+
         }
+
+        .btn.btn-sm.btn-light{
+            font-size: 17px;
+            width: 220px;
+            font-weight: 700;
+            color: #424242;
+            text-align: center;
+        }
+
+
 
 block content
     br
@@ -50,7 +60,7 @@ block content
                 th(scope='col') 교수명
                 th(scope='col') 가격
                 th(scope='col') 재고수
-                th(scope='col') 예약하기
+                th(scope='col') 구매하기
         tbody
             each b,num in books
                 tr
@@ -61,7 +71,7 @@ block content
                     td=b.stock
                     td
                         //- a(href='/docs/board/'+d._id)  ✎
-                        a(href='/booklookup/reserve'+b._id) a
+                        a.buy(href='/booklookup/reserve'+b._id) 🛒
     br 
     .add
         .col-md-4.offset-md-1
