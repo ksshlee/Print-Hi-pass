@@ -38,29 +38,11 @@ block content
     br
     //책 제목 검색 기능 추가하기
 
-    //- link(rel='stylesheet' href='https://use.fontawesome.com/releases/v5.1.0/css/all.css' integrity='sha384-lKuwvrZot6UHsBSfcMvOkWwlCMgc0TaWr+30HWe3a4ltaBwTZhyTEggF5tJv8tbt' crossorigin='anonymous')
-    //- .container
-    //-     .row.justify-content-right
-    //-         //.col-12.col-md-10.col-lg-60
-    //-         .col-md-8.offset-md-5
-    //-             .span12
-    //-             form#custom-search-form.form-search.form-horizontal.pull-right
-    //-                 .input-append.span12(action='/search', method='post')
-    //-                 input.search-query(type='text' placeholder='Search')
-    //-                 button.fas.fa-search.h4.text-body.btn.btn-outline-light(type="submit")
-
-    
-    form(action="/booklookup/search", method="post")
-        input(type="text" placeholder="Search" name="search")
-        button(type="submit") search
-        br
-        br
 
     //제본책 목록 표시
     table.table.table-sm
         thead.thead-dark
             tr
-                th(scope='col') No.
                 th(scope='col') 인쇄실
                 th(scope='col') 제본명
                 th(scope='col') 교수명
@@ -71,20 +53,19 @@ block content
                     th(scope='col') 삭제하기
 
         tbody
-            each b,num in books
+            
                 tr
-                    td=num+1
-                    td=b.place
-                    td=b.title
-                    td=b.professor
-                    td=b.price
-                    td=b.stock-b.num_rsv
+                    td=books.place
+                    td=books.title
+                    td=books.professor
+                    td=books.price
+                    td=books.stock-books.num_rsv
                     td
-                        a.buy(href='/booklookup/reserve'+b._id) 🛒
+                        a.buy(href='/booklookup/reserve'+books._id) 🛒
 
                     if (user.permission == 1)
                         td
-                            a(href='/booklookup/delete'+b._id) 삭제
+                            a(href='/booklookup/delete'+books._id) 삭제
     br 
 
     if (user.permission == 1)

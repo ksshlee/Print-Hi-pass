@@ -30,7 +30,6 @@ router.post('/',isLoggedIn, async function(req,res){
   });
 
   await new_book.save();
-
   console.log(new_book);
 
   req.flash('success', '제본 추가생성 완료');
@@ -38,13 +37,15 @@ router.post('/',isLoggedIn, async function(req,res){
 });
 
 
-//제본예약 창
+//제본예약
 router.get('/reserve:id',isLoggedIn, function(req,res){
   Book.findById(req.params.id, function(err, books){
     return res.render('booklookup/reserve', {books:books});
   });
 });
 
+
+//제본예약
 router.post('/reserve:id',isLoggedIn, async function(req,res){
   console.log('hi')
   console.log(req.params)
@@ -78,6 +79,24 @@ router.get('/delete:id', isAdmin, async function(req, res, next){
   await Book.findByIdAndDelete(req.params.id);
   res.redirect('/booklookup');
 });
+
+
+
+
+
+//제본검색
+router.post('/search', async function(req,res,next){
+  console.log('hi')
+  var books = await Book.findOne({title:req.body.search})
+  if (books == null){
+    req.flash('danger','검색하신 책 제목이 없습니다');
+    return res.redirect('/booklookup');
+  }
+  console.log(books);
+  res.render('booklookup/searchresult', {books:books, user:req.user});
+});
+
+
 
 
 
