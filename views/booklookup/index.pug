@@ -51,6 +51,7 @@ block content
         thead.thead-dark
             tr
                 th(scope='col') No.
+                th(scope='col') 인쇄실
                 th(scope='col') 제본명
                 th(scope='col') 교수명
                 th(scope='col') 가격
@@ -63,6 +64,7 @@ block content
             each b,num in books
                 tr
                     td=num+1
+                    td=b.place
                     td=b.title
                     td=b.professor
                     td=b.price
