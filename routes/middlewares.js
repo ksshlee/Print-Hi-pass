@@ -19,3 +19,12 @@ exports.isNotLoggedIn = (req, res, next) => {
         res.redirect('/');
     }
 };
+
+exports.isAdmin = (req, res, next) =>{
+    if(req.user.permission == 1) {
+        next();
+    }
+    else {
+        res.redirect('/')
+    }
+}

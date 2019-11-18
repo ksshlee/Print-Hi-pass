@@ -3,7 +3,7 @@
 var express= require("express");
 var router=express.Router();
 var Doc=require("../models/Docs");
-var { isLoggedIn, isNotLoggedIn } = require('./middlewares');
+var { isLoggedIn, isNotLoggedIn, isAdmin} = require('./middlewares');
 var multer = require('multer');
 var errorCatcher = require('../lib/async-error'); 
 var User = require('../models/Users');
@@ -413,7 +413,7 @@ router.post('/board/:id', upload.array('photo',1),async function(req, res){
 });
 
 //delete
-router.get('/delete/:id', isLoggedIn, async function(req, res, next){
+router.get('/delete/:id', isAdmin, async function(req, res, next){
   await Doc.findByIdAndDelete(req.params.id);
   res.redirect('/docs/board');
 });

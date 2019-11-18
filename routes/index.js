@@ -1,12 +1,20 @@
 var express = require('express');
 var router = express.Router();
 var User = require('../models/Users');
-var { isLoggedIn, isNotLoggedIn } = require('./middlewares');
+var { isLoggedIn, isNotLoggedIn, isAdmin} = require('./middlewares');
 
 /* main page. */
-router.get('/', async function(req, res, next) {
+
+router.get('/', function(req, res){
+  res.render('home/main');
+});
+
+
+
+//admin 페이지
+router.get('/admin', isAdmin,async function(req, res, next) {
   var alluser = await User.find();
-  res.render('home/main', {user:req.user, alluser:alluser});
+  res.render('home/admin', {user:req.user, alluser:alluser});
 });
 
 /* manual page. */

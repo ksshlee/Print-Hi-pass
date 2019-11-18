@@ -74,6 +74,8 @@ body
         if currentUser
           li.nav-item
             a.nav-link(href='/auth/logout')   log out
+          li.nav-item.active
+            a.nav-link(href='/admin') 관리자창
         else 
           li.nav-item
             a.nav-link(href='/page/login')   log in

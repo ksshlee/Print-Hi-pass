@@ -2,7 +2,7 @@ var express = require('express');
 var router = express.Router();
 var Book=require("../models/Books");
 var errorCatcher = require('../lib/async-error'); 
-var { isLoggedIn, isNotLoggedIn } = require('./middlewares');
+var { isLoggedIn, isNotLoggedIn, isAdmin} = require('./middlewares');
 
 /* main page. */
 router.get('/',isLoggedIn,async function(req, res, next) {
@@ -12,14 +12,14 @@ router.get('/',isLoggedIn,async function(req, res, next) {
 
 
 //제본 추가 생성
-router.get('/updatebook',isLoggedIn, function(req,res,next){
+router.get('/updatebook',isAdmin, function(req,res,next){
   res.render('booklookup/updatebook')
 });
 
 
 //추가생성된 값을 디비에 저장
 var new_book
-router.post('/',async function(req,res){
+router.post('/',isLoggedIn, async function(req,res){
   new_book = new Book({
     title : req.body.title,
     professor : req.body.professor,
@@ -44,7 +44,7 @@ router.get('/reserve:id',isLoggedIn, function(req,res){
   });
 });
 
-router.post('/reserve:id', async function(req,res){
+router.post('/reserve:id',isLoggedIn, async function(req,res){
   console.log('hi')
   console.log(req.params)
   Book.findById(req.params.id, function(err, books){
@@ -73,7 +73,7 @@ router.post('/reserve:id', async function(req,res){
 
 
 //제본 삭제 관리자한테만
-router.get('/delete:id', isLoggedIn, async function(req, res, next){
+router.get('/delete:id', isAdmin, async function(req, res, next){
   await Book.findByIdAndDelete(req.params.id);
   res.redirect('/booklookup');
 });
