@@ -33,6 +33,19 @@ block contenthead
            color: #424242;
         }
 
+        .form-control-borderless {
+            border: none;
+        }
+
+        .form-control-borderless:hover, .form-control-borderless:active, .form-control-borderless:focus {
+            border: none;
+            outline: none;
+            box-shadow: none;
+        }
+
+       
+        
+
 block content
     br
     p *&nbsp;Welcome! 제본책 판매합니다!&nbsp;*
@@ -40,7 +53,18 @@ block content
     br
     //책 제목 검색 기능 추가하기
 
-    br
+    link(rel='stylesheet' href='https://use.fontawesome.com/releases/v5.1.0/css/all.css' integrity='sha384-lKuwvrZot6UHsBSfcMvOkWwlCMgc0TaWr+30HWe3a4ltaBwTZhyTEggF5tJv8tbt' crossorigin='anonymous')
+    .container
+        .row.justify-content-right
+            //.col-12.col-md-10.col-lg-60
+            .col-md-8.offset-md-5
+                .span12
+                form#custom-search-form.form-search.form-horizontal.pull-right
+                    .input-append.span12
+                    input.search-query(type='text' placeholder='Search')
+                    button.fas.fa-search.h4.text-body.btn.btn-outline-light
+                    
+
     //제본책 목록 표시
     table(border='1').table.table-sm
         thead.thead-dark
