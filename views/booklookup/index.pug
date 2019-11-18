@@ -24,6 +24,10 @@ block contenthead
             line-height: 50px;
        }
 
+       .buy {
+           padding: 10px;
+       }
+
        
         
 
@@ -47,7 +51,7 @@ block content
                     
 
     //제본책 목록 표시
-    table(border='1').table.table-sm
+    table.table.table-sm
         thead.thead-dark
             tr
                 th(scope='col') No.
@@ -70,7 +74,8 @@ block content
                     td=b.price
                     td=b.stock-b.num_rsv
                     td
-                        a(href='/booklookup/reserve'+b._id) 🛒
+                        a.buy(href='/booklookup/reserve'+b._id) 🛒
+
                     if (user.permission == 1)
                         td
                             a(href='/booklookup/delete'+b._id) 삭제
