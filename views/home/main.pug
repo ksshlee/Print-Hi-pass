@@ -1,3 +1,69 @@
 extends ../partials/layout
 
+block contenthead
+    style.
+            p {
+                font-family: "Nanum Gothic", sans-serif;
+                font-size: 25px;
+                font-weight: bold;
+            }
+
+            th{
+                padding: 3px;
+                line-height: 25px;
+                font-size: 16px;
+            }
+
+        .table.table-sm {
+                width: 700px;
+                font-family: "Nanum Gothic", sans-serif;
+                margin: auto;
+                padding: 8px;
+                text-align: center;
+                font-size: 16px;
+                line-height: 50px;
+        }
+
+            .buy {
+                margin: auto;
+                padding: 13px;
+                text-align: center;
+
+            }
+
+            .btn.btn-sm.btn-light{
+                font-size: 17px;
+                width: 220px;
+                font-weight: 700;
+                color: #424242;
+                text-align: center;
+            }
+
 block content
+
+    if (user.permission==1)
+        table.table.table-sm
+            thead.thead-dark
+                tr
+                    th(scope='col') NO.
+                    th(scope='col') id
+                    th(scope='col') name
+                    th(scope='col') phone
+                    th(scope='col') email
+                    th(scope='col') 삭제
+
+
+            tbody
+                each u,num in alluser
+                    tr
+                        td=num+1
+                        td=u.id
+                        td=u.name
+                        td=u.phone
+                        td=u.email
+                        td
+                            a(href='/delete'+u._id) 삭제
+
+        br
+    else
+        h1 홈입니다!
