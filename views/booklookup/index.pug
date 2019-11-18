@@ -51,6 +51,9 @@ block content
                 th(scope='col') 가격
                 th(scope='col') 재고수
                 th(scope='col') 예약하기
+                if (user.permission == 1)
+                    th(scope='col') 삭제하기
+
         tbody
             each b,num in books
                 tr
@@ -60,10 +63,14 @@ block content
                     td=b.price
                     td=b.stock-b.num_rsv
                     td
-                        //- a(href='/docs/board/'+d._id)  ✎
                         a(href='/booklookup/reserve'+b._id) a
+                    if (user.permission == 1)
+                        td
+                            a(href='/booklookup/delete'+b._id) 삭제
     br 
-    .add
-        .col-md-4.offset-md-1
-            a.btn.btn-sm.btn-light(href='booklookup/updatebook') 제본목록 올리기(관리자)  
-    br
+
+    if (user.permission == 1)
+        .add
+            .col-md-4.offset-md-1
+                a.btn.btn-sm.btn-light(href='booklookup/updatebook') 제본목록 올리기(관리자)  
+        br
