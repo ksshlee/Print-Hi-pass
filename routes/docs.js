@@ -146,19 +146,19 @@ router.get("/", isLoggedIn, async function(req, res, next) {
 });
 
 // New
-router.get("/new",function(req,res){
+router.get("/new", isLoggedIn, function(req,res){
     res.render("docs/new");
 })
 
 
 //pay
-router.get("/pay", errorCatcher(async(req,res,next) => {
+router.get("/pay", isLoggedIn, errorCatcher(async(req,res,next) => {
     res.render("docs/pay",{payment : req.query.payment});
 }));
 
 
 //savedoc
-router.get("/savedoc", errorCatcher(async(req,res,next) => {
+router.get("/savedoc",isLoggedIn,errorCatcher(async(req,res,next) => {
   if (new_doc){
     await new_doc.save();
   }
@@ -167,16 +167,13 @@ router.get("/savedoc", errorCatcher(async(req,res,next) => {
 
 
 //board
-router.get("/board",async function(req,res){
-  var docs = await Doc.find();
+router.get("/board",isLoggedIn,async function(req,res){
+  var docs = await Doc.find().sort({'time_frop': 1});
   //LinkedList = new LinkedList();
   //LinkedList.append(docs.author,docs.content,docs.colorchoice,docs.direction,docs.checkside,docs.page,docs.payment,docs.count,docs.sheetpage,docs.time_frop);
   //console.log(LinkedList)
   res.render("docs/board",{docs:docs});
 })
-
-
-
 
 function validCreateForm (form){
   // 글쓰기 폼 검사
@@ -245,14 +242,6 @@ try {
   
   console.log(`file inform : ${originalName}, ${fileName}, ${mimeType}, ${size}`); 
   
-  // res.writeHead('200', { 
-  //   'Content-type': 'text/html;charset=utf8' 
-  // }); 
-  // res.write('<h3>upload success</h3>'); 
-  // res.write(`<p>original name = ${originalName}, saved name = ${fileName}<p>`); 
-  // res.write(`<p>mime type : ${mimeType}<p>`); 
-  // res.write(`<p>file size : ${size}<p>`); 
-  // res.end(); 
 } catch (err) { 
   console.dir(err.stack); 
 }
@@ -279,6 +268,11 @@ try {
   console.log(Math.ceil(total_pay/req.body.division))
   
   
+  console.log('---------------');
+  console.log('게시판 글올린 body 확인');
+  console.log(req.body);
+  console.log('--------------');
+
 
   //var user = await User.findOne({id:id});
 
@@ -299,7 +293,8 @@ try {
     sheetpage : req.body.division,
     payment : total_pay,
     rsv_date : req.body.rsv_date,
-    time_frop : req.body.time_frop
+    time_frop : req.body.time_frop,
+    file_name : req.body.fileupload
   });
   console.log(new_doc);
 
@@ -316,7 +311,7 @@ try {
 
 
 // edit
-router.get("/board/:id", function(req, res){
+router.get("/board/:id",isLoggedIn, function(req, res){
   Doc.findById(req.params.id, function(err, doc){
     // console.log(req.params.id);
     // console.log(doc.auth);
@@ -330,14 +325,24 @@ router.get("/board/:id", function(req, res){
 
 });
 
+//show
+router.get("/show/:id",isLoggedIn, function(req,res){
+  Doc.findById(req.params.id, function(err, doc){
+    // console.log(req.params.id);
+    // console.log(doc.auth);
+    // console.log(req.user._id);
+    if(doc.auth != req.user._id){
+      req.flash('danger', '잘못된 접근입니다!');
+      return res.redirect('/docs/board');
+    }
+    return res.render('../views/docs/show',  { doc:doc});
+  });
 
-// router.get('/edit/:id', function(req, res){
-
-// });
+});
 
 
 // edit
-router.post('/board/:id', upload.array('photo',1), async function(req, res){
+router.post('/board/:id', upload.array('photo',1),async function(req, res){
   console.log("enter editing");
   console.log(req.params.id);
   console.log(req.body);
@@ -414,43 +419,10 @@ router.post('/board/:id', upload.array('photo',1), async function(req, res){
 });
 
 //delete
-router.get('/delete/:id', async function(req, res, next){
+router.get('/delete/:id', isLoggedIn, async function(req, res, next){
   await Doc.findByIdAndDelete(req.params.id);
   res.redirect('/docs/board');
 });
-
-// // show
-// router.get("/:id", function(req, res){
-//     Post.findOne({_id:req.params.id}, function(err, post){
-//       if(err) return res.json(err);
-//       res.render("posts/show", {post:post});
-//     });
-//   });
   
-//   // edit
-//   router.get("/:id/edit", function(req, res){
-//     Post.findOne({_id:req.params.id}, function(err, post){
-//       if(err) return res.json(err);
-//       res.render("posts/edit", {post:post});
-//     });
-//   });
-  
-//   // update
-//   router.put("/:id", function(req, res){
-//     req.body.updatedAt = Date.now(); // 2
-//     Post.findOneAndUpdate({_id:req.params.id}, req.body, function(err, post){
-//       if(err) return res.json(err);
-//       res.redirect("/posts/"+req.params.id);
-//     });
-//   });
-  
-//   // destroy
-//   router.delete("/:id", function(req, res){
-//     Post.deleteOne({_id:req.params.id}, function(err){
-//       if(err) return res.json(err);
-//       res.redirect("/posts");
-//     });
-//   });
-  
-  module.exports = router;
+module.exports = router;
   

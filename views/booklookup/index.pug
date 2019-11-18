@@ -5,37 +5,52 @@ block contenthead
     link(href='https://fonts.googleapis.com/css?family=Nanum+Gothic:400,700,800&subset=korean' rel='stylesheet')
     style.
         p {
-        font-family: "Nanum Gothic", sans-serif;
-        font-size: 26px;
-        font-weight: 700;
+            font-family: "Nanum Gothic", sans-serif;
+            font-size: 25px;
+            font-weight: bold;
         }
-       
+
+        th{
+            padding: 3px;
+            line-height: 25px;
+            font-size: 16px;
+        }
+
+       .table.table-sm {
+           width: 700px;
+           text-size: 14px;
+           font-family: "Nanum Gothic", sans-serif;
+           margin: auto;
+           text-align: center;
+           line-height: 30px;
+           padding: 8px;
+       }
+
+        .btn.btn-sm.btn-light{
+           font-size: 17px;
+           width: 220px;
+           font-weight: 700;
+           color: #424242;
+        }
 
 block content
     br
-    p * &nbsp;제본 &nbsp; *
-    .row 
-        //글 위치 배정
-        .col-xs-7.col-md-5
-        div
-            br
-            a.btn.btn-outline-dark(href='') 제본 예약하기
-            br
-            a.btn.btn-outline-dark(href='booklookup/updatebook') 제본목록 올리기(관리자)
+    p *&nbsp;Welcome! 제본책 판매합니다!&nbsp;*
     br
-    br 
+    br
+    //책 제목 검색 기능 추가하기
 
-
-    table(border="1")
-        br
-        thead
+    br
+    //제본책 목록 표시
+    table(border='1').table.table-sm
+        thead.thead-dark
             tr
-                td No.
-                td 제목
-                td 교수님
-                td 가격
-                td 남은 제본 수
-
+                th(scope='col') No.
+                th(scope='col') 제본명
+                th(scope='col') 교수명
+                th(scope='col') 가격
+                th(scope='col') 재고수
+                th(scope='col') 예약하기
         tbody
             each b,num in books
                 tr
@@ -44,4 +59,11 @@ block content
                     td=b.professor
                     td=b.price
                     td=b.stock
-
+                    td
+                        //- a(href='/docs/board/'+d._id)  ✎
+                        a(href='/booklookup/reserve'+b._id) a
+    br 
+    .add
+        .col-md-4.offset-md-1
+            a.btn.btn-sm.btn-light(href='booklookup/updatebook') 제본목록 올리기(관리자)  
+    br

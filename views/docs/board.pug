@@ -32,7 +32,6 @@ block content
             th(scope='col') 흑백/컬러
             th(scope='col') 가로/세로
             th(scope='col') 양면/단면
-            th(scope='col') 수령날짜
             th(scope='col') 수령시간
             th(scope='col') 요청사항
             th(scope='col') 수정
@@ -55,9 +54,8 @@ block content
                 else
                     td 양면
                     
-                td=d.rsv_date
                 td=d.time_frop
-                td= d.content
+                td=d.content
                 td
                     a(href='/docs/board/'+d._id)  ✎
                 //✍ 뭐가 더 예쁜지 봐주쎄용

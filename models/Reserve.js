@@ -4,12 +4,11 @@ var mongoose = require("mongoose");
 const Schema = mongoose.Schema;
 
 //schema
-var bookSchema = new mongoose.Schema({ // 1
+var reserveSchema = new Schema({ // 1
     title:{type:String},
     professor:{type:String},
-    price:{type:Number},
-    stock:{type:Number},
-    total_rsv:{type:Number}
+    uid:{type:String},
+    num_rsv:{type:Number}
   },{
     toObject:{virtuals:true} // 4
   });
@@ -17,5 +16,5 @@ var bookSchema = new mongoose.Schema({ // 1
 
   //model export
 
-  var Book =mongoose.model("booklookup",bookSchema);
-  module.exports = Book;
+  var Reserve =mongoose.model("reserve",reserveSchema);
+  module.exports = Reserve;

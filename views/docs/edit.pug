@@ -16,8 +16,6 @@ block contenthead
 block content
     div
         //- a(href='/docs') 뒤로가기
-
-   
         form#radio(action='/docs/board/'+doc._id, method='post' enctype='multipart/form-data')
             div
                 //- h3 새로운 예약
@@ -88,9 +86,9 @@ block content
                             option(value='16' selected=doc.sheetpage=='16') 16
                 br
 
-                div
-                    label(for='rsv_date') 날짜입력 : 
-                        input#rsv_date(type='date', value=doc.rsv_date, name='rsv_date' min='2019-11-1' max='2019-12-30')
+                //- div
+                //-     label(for='rsv_date') 날짜입력 : 
+                //-         input#rsv_date(type='date', value=doc.rsv_date, name='rsv_date' min='2019-11-1' max='2019-12-30')
                 div
                     label(for='time_frop') 수령 희망 시간 : 
                         input#time_frop(type='time', value=doc.time_frop, name='time_frop' min='09:00' max='18:00')

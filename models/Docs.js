@@ -18,33 +18,14 @@ var docsSchema = Schema({ // 1
     count:{type:Number, required:true},
     payment:{type:Number},
     sheetpage:{type:Number},
-    // createdAt:{type:Date, default:Date.now}, // 2
-    // updatedAt:{type:Date},
     rsv_date:{type:String},
-    time_frop:{type:String}
+    time_frop:{type:String},
+    file_name:{type:String}
 
   },{
     toObject:{virtuals:true} // 4
   });
   
 
-  //model export
-
   var Doc =mongoose.model("docs",docsSchema);
   module.exports  = Doc;
-
-
-  // //functions
-  // function getDate(dateObj){
-  //   if(dateObj instanceof Date)
-  //     return dateObj.getFullYear() + "-" + get2digits(dateObj.getMonth()+1)+ "-" + get2digits(dateObj.getDate());
-  // }
-  
-  // function getTime(dateObj){
-  //   if(dateObj instanceof Date)
-  //     return get2digits(dateObj.getHours()) + ":" + get2digits(dateObj.getMinutes())+ ":" + get2digits(dateObj.getSeconds());
-  // }
-  
-  // function get2digits(num){
-  //   return ("0" + num).slice(-2);
-  // }
