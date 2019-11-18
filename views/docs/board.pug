@@ -2,6 +2,8 @@ extends ../partials/layout
 
 block contenthead
     script(src="/routes/docs.js")
+    
+    link(href='https://fonts.googleapis.com/css?family=Do+Hyeon&display=swap&subset=korean' rel='stylesheet')
     style.
 
         th{
@@ -24,7 +26,7 @@ block contenthead
 block content
     br
     table.table.table-sm
-        thead.thead-light
+        thead.thead-dark
             tr
             th(scope='col') NO.
             th(scope='col') 흑백/컬러
