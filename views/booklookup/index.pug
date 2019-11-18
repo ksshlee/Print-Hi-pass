@@ -24,6 +24,10 @@ block contenthead
             line-height: 50px;
        }
 
+       .buy {
+           padding: 10px;
+       }
+
        
         
 
@@ -68,7 +72,8 @@ block content
                     td=b.price
                     td=b.stock-b.num_rsv
                     td
-                        a(href='/booklookup/reserve'+b._id) 🛒
+                        a.buy(href='/booklookup/reserve'+b._id) 🛒
+
                     if (user.permission == 1)
                         td
                             a(href='/booklookup/delete'+b._id) 삭제
