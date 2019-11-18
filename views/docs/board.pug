@@ -2,6 +2,8 @@ extends ../partials/layout
 
 block contenthead
     script(src="/routes/docs.js")
+    
+    link(href='https://fonts.googleapis.com/css?family=Do+Hyeon&display=swap&subset=korean' rel='stylesheet')
     style.
 
         th{
@@ -24,7 +26,7 @@ block contenthead
 block content
     br
     table.table.table-sm
-        thead.thead-light
+        thead.thead-dark
             tr
             th(scope='col') NO.
             th(scope='col') 흑백/컬러
@@ -33,12 +35,13 @@ block content
             th(scope='col') 수령시간
             th(scope='col') 요청사항
             th(scope='col') 수정
-           
-                //- th(scope='col') 인쇄완료
-                //- th(scope='col') 수령완료
-                //- th(scope='col') 삭제
+            if (user.permission == 1)
+                th(scope='col') 인쇄완료
+                th(scope='col') 수령완료
+                th(scope='col') 삭제
             
 
+        
 
         tbody
         each d, num in docs
@@ -71,6 +74,12 @@ block content
                         input(type="checkbox")
                     // 삭제 버튼
                     td 
+<<<<<<< HEAD
                         input(type="button")
+        
+
+=======
+                        a(href='/docs/delete/'+d._id) 삭제
+>>>>>>> c928dabc958d88d97c567eaf81dd9971ce7d6002
     br
     

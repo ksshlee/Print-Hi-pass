@@ -7,11 +7,10 @@ var { isLoggedIn, isNotLoggedIn } = require('./middlewares');
 /* main page. */
 router.get('/',isLoggedIn,async function(req, res, next) {
   var books = await Book.find();
-  res.render('booklookup/index', {books:books});
+  res.render('booklookup/index', {books:books, user:req.user});
 });
 
 
-//추후 관리자 권한 생성후 보완
 //제본 추가 생성
 router.get('/updatebook',isLoggedIn, function(req,res,next){
   res.render('booklookup/updatebook')
@@ -71,6 +70,14 @@ router.post('/reserve:id', async function(req,res){
   });
   res.redirect('/booklookup');
 });
+
+
+//제본 삭제 관리자한테만
+router.get('/delete:id', isLoggedIn, async function(req, res, next){
+  await Book.findByIdAndDelete(req.params.id);
+  res.redirect('/booklookup');
+});
+
 
 
 module.exports = router;
