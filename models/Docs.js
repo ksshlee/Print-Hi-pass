@@ -1,14 +1,10 @@
-//models Docs.js
-//게시판 형식 관련 백엔드 js
+//게시판 스키마
 
 var mongoose = require("mongoose");
 const Schema = mongoose.Schema;
 
 //schema
 var docsSchema = Schema({ // 1
-  // body -> content
-    //title:{type:String, required:true},
-   // auth:{type:Schema.Types.ObjectId, ref: 'Users'},
     auth:{type:String},
     content:{type:String},
     colorchoice:{type:String},

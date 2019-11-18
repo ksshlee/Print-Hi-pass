@@ -1,3 +1,5 @@
+//사용자 스키마
+
 var mongoose = require("mongoose");
 const bcrypt = require('bcrypt');
 const Schema = mongoose.Schema;

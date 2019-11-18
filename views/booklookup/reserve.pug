@@ -1,13 +1,25 @@
 extends ../partials/layout
 
+block contenthead
+    link(href='https://fonts.googleapis.com/css?family=Nanum+Gothic:400,700,800&subset=korean' rel='stylesheet')
+    
+    style.
+        p {
+            font-family: "Nanum Gothic", sans-serif;
+            font-size: 25px;
+            font-weight: bold;
+        }
 
 block content
-    h1 제본 예약
-     a(href="/booklookup") 뒤로가기
+    br
+    p 제본 구매
+    br
+    a(href="/booklookup") 뒤로가기
 
 
     form(action="/booklookup/reserve"+books._id method="post")
         
-        label(for="count") 몇개요
+        label(for="count") 수량 &nbsp;&nbsp;
         input#count(type="text" name="count")
-        button(type="submit") 예약
+        button(type="submit") 구매하기
+        br
