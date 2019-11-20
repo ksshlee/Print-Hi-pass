@@ -17,9 +17,55 @@ router.get('/updatebook',isAdmin, function(req,res,next){
 });
 
 
+function validBookForm (form){
+  var place = form.place || "";
+  var title = form.title || "";
+  var professor = form.professor || "";
+  var price = form.price || 0;
+  var stock = form.stock || 0;
+
+  if( !place ){
+    return "인쇄실을 입력하세요";
+  }
+
+  if( !title ){
+    return "제본 이름을 입력하세요";
+  }
+
+  if( !professor ){
+    return "교수님 성함을 입력하세요";
+  }
+
+  if( price == 0 ){
+    return "가격을 입력하세요";
+  }
+
+  if( stock == 0 ){
+    return "재고를 입력하세요";
+  }
+}
+
+
 //추가생성된 값을 디비에 저장
 var new_book
 router.post('/',isLoggedIn, async function(req,res){
+  var err = validBookForm(req.body);
+  if(err){
+    req.flash('danger', err);
+    return res.redirect('back'); 
+  }
+
+  var isDup = await Book.findOne({
+    place : req.body.place,
+    title : req.body.title,
+    professor : req.body.professor
+  });
+  if (isDup){
+    req.flash('danger', "중복된 제본이 있습니다.");
+    return res.redirect('back');
+  }
+
+
   new_book = new Book({
     place : req.body.place,
     title : req.body.title,
@@ -74,6 +120,51 @@ router.post('/reserve:id',isLoggedIn, async function(req,res){
 });
 
 
+//제본 수정 관리자한테만
+router.get('/modify:id', isAdmin, async function(req, res, next){
+  Book.findById(req.params.id, function(err, book){
+    return res.render('../views/booklookup/modifybook',  { book:book});
+  });
+});
+
+
+// 제본 수정 관리자한테만
+router.post('/modify:id', async function(req, res){
+  console.log("enter editing");
+  console.log(req.params.id);
+  console.log(req.body);
+
+  var err = validBookForm(req.body);
+  if (err){
+    req.flash('danger', err);
+    return res.redirect('back');
+  }
+
+
+  let book = {};
+  book.place = req.body.place;
+  book.title = req.body.title;
+  book.professor = req.body.professor;
+  book.price = req.body.price;
+  book.stock = req.body.stock;
+  
+
+  console.log(book);
+
+  let up_book = {_id:req.params.id};
+
+  Book.update(up_book, book, function(err){
+    if(err){
+      console.log(err);
+      return;
+    } else {
+      req.flash('success', '제본 수정!');
+      res.redirect('/booklookup');
+    }
+  });
+});
+
+
 //제본 삭제 관리자한테만
 router.get('/delete:id', isAdmin, async function(req, res, next){
   await Book.findByIdAndDelete(req.params.id);
@@ -87,7 +178,7 @@ router.get('/delete:id', isAdmin, async function(req, res, next){
 //제본검색
 router.post('/search', async function(req,res,next){
   console.log('hi')
-  var books = await Book.findOne({title:req.body.search})
+  var books = await Book.find({title:req.body.search})
   if (books == null){
     req.flash('danger','검색하신 책 제목이 없습니다');
     return res.redirect('/booklookup');

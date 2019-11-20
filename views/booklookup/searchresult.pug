@@ -43,33 +43,39 @@ block content
     table.table.table-sm
         thead.thead-dark
             tr
+                th(scope='col') No.
                 th(scope='col') 인쇄실
                 th(scope='col') 제본명
                 th(scope='col') 교수명
                 th(scope='col') 가격
                 th(scope='col') 재고수
-                th(scope='col') 구매하기
+                if (user.permission == 2)
+                    th(scope='col') 구매하기
                 if (user.permission == 1)
                     th(scope='col') 삭제하기
 
         tbody
-            
+            each b,num in books
                 tr
-                    td=books.place
-                    td=books.title
-                    td=books.professor
-                    td=books.price
-                    td=books.stock-books.num_rsv
-                    td
-                        a.buy(href='/booklookup/reserve'+books._id) 🛒
+                    td=num+1
+                    td=b.place
+                    td=b.title
+                    td=b.professor
+                    td=b.price
+                    td=b.stock-b.num_rsv
+                    if (user.permission == 2)
+                        td
+                            a.buy(href='/booklookup/reserve'+b._id) 🛒
 
                     if (user.permission == 1)
                         td
-                            a(href='/booklookup/delete'+books._id) 삭제
+                            a(href='/booklookup/modify'+b._id) 수정
+                        td
+                            a(href='/booklookup/delete'+b._id) 삭제
     br 
 
     if (user.permission == 1)
         .add
             .col-md-4.offset-md-1
-                a.btn.btn-sm.btn-light(href='booklookup/updatebook') 제본목록 올리기(관리자)  
+                a.btn.btn-sm.btn-light(href='./updatebook') 제본목록 올리기(관리자)  
         br

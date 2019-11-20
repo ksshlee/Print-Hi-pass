@@ -41,11 +41,11 @@ block contenthead
 
 block content
 
-    form(action="/search", method="post")
-        input(type="text" placeholder="이름 검색" name="search")
-        button(type="submit") search
-        br
-        br
+    //- form(action="/search", method="post")
+    //-     input(type="text" placeholder="이름 검색" name="search")
+    //-     button(type="submit") search
+    //-     br
+    //-     br
 
     if (user.permission==1)
         table.table.table-sm
@@ -60,7 +60,7 @@ block content
 
 
             tbody
-                each u,num in alluser
+                each u,num in users
                     tr
                         td=num+1
                         td=u.id

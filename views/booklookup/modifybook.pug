@@ -1,0 +1,42 @@
+extends ../partials/layout
+block contenthead
+    script(src="/routes/booklookup.js")
+    style.
+
+        form {
+            text-align : center;
+            font-weight: bold; 
+            width : 200px;
+            float : none; 
+            margin : 0 auto;
+        }
+
+block content
+    .add
+        form(action="/booklookup/modify"+book._id method='post')
+            fieldset
+                br
+                br
+                div
+                    label(for="title") 인쇄실&nbsp;
+                    input#title(type="text" value=book.place name="place")
+                br
+                div
+                    label(for="title") 책 제목&nbsp;
+                    input#title(type="text" value=book.title name="title")
+                br
+                div    
+                    label(for="professor") 교수명&nbsp;
+                    input#professor(type="text" value=book.professor name="professor")
+                br
+                div
+                    label(for="price") 가격&nbsp;
+                    input#price(type="text" value=book.price name="price")
+                br
+                div 
+                    label(for="stock") 개수&nbsp;
+                    input#stock(type="text" value=book.stock name="stock")
+                br
+                div
+                    button.btn.btn-secondary(type="submit") 제본수정
+                br

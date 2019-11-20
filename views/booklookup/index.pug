@@ -66,8 +66,10 @@ block content
                 th(scope='col') 교수명
                 th(scope='col') 가격
                 th(scope='col') 재고수
-                th(scope='col') 구매하기
+                if (user.permission == 2)
+                    th(scope='col') 구매하기
                 if (user.permission == 1)
+                    th(scope='col') 수정하기
                     th(scope='col') 삭제하기
 
         tbody
@@ -79,10 +81,13 @@ block content
                     td=b.professor
                     td=b.price
                     td=b.stock-b.num_rsv
-                    td
-                        a.buy(href='/booklookup/reserve'+b._id) 🛒
+                    if (user.permission == 2)
+                        td
+                            a.buy(href='/booklookup/reserve'+b._id) 🛒
 
                     if (user.permission == 1)
+                        td
+                            a(href='/booklookup/modify'+b._id) 수정
                         td
                             a(href='/booklookup/delete'+b._id) 삭제
     br 
