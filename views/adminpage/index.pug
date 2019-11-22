@@ -1,0 +1,26 @@
+extends ../partials/layout
+
+block contenthead
+
+    link(href='https://fonts.googleapis.com/css?family=Do+Hyeon&display=swap&subset=korean' rel='stylesheet')
+    style.
+        p {
+        font-family: "Nanum Gothic", sans-serif;
+        font-size: 26px;
+        font-weight: 600;
+        color : #696868;
+        }
+
+block content
+    br
+    p=title
+    .row 
+        //글 위치 배정
+        .col-xs-7.col-md-5
+        div
+            br
+            a.btn.btn-outline-dark(href='/admin') 사용자 현황보기 
+            br
+            a.btn.btn-outline-dark(href='/changeaccount') 계좌 정보 입력하기 
+    br
+    br 

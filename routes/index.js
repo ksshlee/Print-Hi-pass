@@ -11,16 +11,23 @@ router.get('/', function(req, res){
 
 
 
-//admin 페이지
-router.get('/admin', isAdmin,async function(req, res, next) {
-  var alluser = await User.find();
-  res.render('home/admin', {user:req.user, alluser:alluser});
+
+//admin main 페이지
+router.get('/adminmain', isAdmin, async function(req,res,next){
+  res.render('adminpage/index');
 });
 
 
-//회원검색
+
+//admin 회원 목록 페이지
+router.get('/admin', isAdmin,async function(req, res, next) {
+  var alluser = await User.find();
+  res.render('adminpage/admin', {user:req.user, alluser:alluser});
+});
+
+
+//admin 회원검색 페이지
 router.post('/search', async function(req,res,next){
-  console.log('hi')
   var users = await User.find({name:req.body.search});
   console.log(users);
   if (users == null){
@@ -29,8 +36,17 @@ router.post('/search', async function(req,res,next){
     return res.redirect('back');
   }
   console.log(users);
-  res.render('home/userresult', {users:users, user:req.user});
+  res.render('adminpage/userresult', {users:users, user:req.user});
 });
+
+
+//admin 계좌정보 변경
+router.get('/changeaccount', async function(req,res,next){
+  res.render('adminpage/accountnumber');
+});
+
+
+
 
 
 /* manual page. */
