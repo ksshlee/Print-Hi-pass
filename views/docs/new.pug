@@ -7,7 +7,7 @@ block content
         br
         a(href='/docs') 뒤로가기
 
-    form#radio(action='/docs', method='post' enctype='multipart/form-data')
+    form#radio(action='/docs?key='+key, method='post' enctype='multipart/form-data')
         div
             //- h3 새로운 예약
         fieldset

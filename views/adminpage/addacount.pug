@@ -1,0 +1,21 @@
+extends ../partials/layout
+
+
+block content
+    form(action="/add_account" method='post')
+        fieldset
+            label(for="accountnumber") 계좌번호
+            input#accountnumber(type="text" name="accountnumber")
+            br
+            label(for="accountadmin") 계좌주인
+            input#accountadmin(type="text" name="accountadmin")
+            br
+            label(for="accountbank") 계좌은행
+            input#accountbank(type="text" name="accountbank")
+            br
+            label(for="adminplace") 관리자 위치
+            input#adminplace(type="text" name="adminplace")
+            br
+            br
+            br
+            button(type='submit') 올리기

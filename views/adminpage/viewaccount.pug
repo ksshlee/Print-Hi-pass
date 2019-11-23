@@ -1,0 +1,68 @@
+extends ../partials/layout
+
+block contenthead
+    script(src="/routes/docs.js")
+    
+    link(href='https://fonts.googleapis.com/css?family=Do+Hyeon&display=swap&subset=korean' rel='stylesheet')
+    style.
+        p {
+            font-family: "Nanum Gothic", sans-serif;
+            font-size: 25px;
+            font-weight: bold;
+        }
+
+        th{
+            font-size: 16px;
+            padding:4px;
+            line-height: 35px;
+        }
+        .table.table-sm{
+            width : 700px;
+            margin : auto;
+            text-align : center;
+            font-family: "Nanum Gothic", sans-serif;
+            font-size: 14px;
+            font-weight: 600;
+            padding:8px;
+            line-height: 50px;
+        }
+
+        .buy {
+           padding: 10px;
+       }
+
+
+block content
+    br
+    table.table.table-sm
+        thead.thead-dark
+            tr
+            th(scope='col') NO.
+            th(scope='col') 계좌번호
+            th(scope='col') 계좌주인
+            th(scope='col') 은행
+            th(scope='col') 관리자장소
+            th(scope='col') 수정
+            th(scope='col') 삭제
+            
+
+        
+
+        tbody
+        each a, num in account
+            tr
+            td(scope="row")=num+1
+                td=a.accountnumber   
+                td=a.accountadmin
+                td=a.accountbank
+                td=a.adminplace
+                td
+                    a(href='/modify/'+a._id)  ✎ 
+                td 
+                    a(href='/delete_account/'+a._id) 삭제
+    br
+    
+    .add
+        .col-md-4.offset-md-1
+            a.btn.btn-sm.btn-light(href='/addaccount') 제본목록 올리기(관리자)  
+        br

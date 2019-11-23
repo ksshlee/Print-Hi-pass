@@ -7,6 +7,7 @@ var { isLoggedIn, isNotLoggedIn, isAdmin} = require('./middlewares');
 var multer = require('multer');
 var errorCatcher = require('../lib/async-error'); 
 var User = require('../models/Users');
+var Account = require('../models/Account');
 
 // node 구현
 function Node(auth,content,colorchoice,direction,checkside,page,payment,count,sheetpage,time_frop){
@@ -127,33 +128,30 @@ const storage = multer.diskStorage({
 //Index
 router.get("/", isLoggedIn, async function(req, res, next) {
   key = req.query.key//키값 받아서 확인
-  if (key == "0"){
+  console.log(key)
+  if (key == "5공학관"){
     title="welcome! 5공학관 인쇄실!"
   }
-  else if (key == "1") {
+  else if (key == "명진당") {
     title="♥ 명진당 인쇄실입니다 ♥"
   }
-  var arr_doc = await Doc.find();
-    Doc.find({})
-    .sort("time_frop")
-    .exec(function(err,arr_doc){
-        if(err)return  res.json(err);
-        
-    })
-
-  
-  res.render("docs/index",{arr_doc:arr_doc});
+  res.render("docs/index",{key:key});
 });
 
 // New
 router.get("/new", isLoggedIn, function(req,res){
-    res.render("docs/new");
+  key= req.query.key
+  res.render("docs/new",{key:key});
 })
 
 
 //pay
 router.get("/pay", isLoggedIn, errorCatcher(async(req,res,next) => {
-    res.render("docs/pay",{payment : req.query.payment});
+  console.log(key)
+  var account = await Account.find({adminplace:req.query.key});
+  console.log(account);
+  payment = new_doc.payment
+  res.render("docs/pay",{account:account, payment:payment});
 }));
 
 
@@ -162,7 +160,7 @@ router.get("/savedoc",isLoggedIn,errorCatcher(async(req,res,next) => {
   if (new_doc){
     await new_doc.save();
   }
-  res.redirect("../docs/board");
+  res.redirect("/docs/board");
 }));
 
 
@@ -298,8 +296,10 @@ try {
   // var LinkedList = new LinkedList();
   // LinkedList.append(req.session.user_id,req.body.content,req.body.colorchoice,req.body.directionchoice,req.body.sidechoice,req.body.page,total_pay,req.body.count,req.body.division,req.body.time_frop);
   
+  //명진당인지 5공인지 키값 저장
+  key=req.query.key
   req.flash('success', "글쓰기 성공");
-  res.redirect("/docs/pay?payment="+new_doc.payment);
+  res.redirect("/docs/pay?key="+key);
   
 });
 

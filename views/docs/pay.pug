@@ -26,19 +26,21 @@ block contenthead
 block content
     
     div 
-        br      
-        br
-        h5  
-            |예금주 : 김재원 
+        each a in account
+            br      
             br
-            |  신한은행 110 492 576530
-        br
-        p   * 위의 계좌번호로 입금 완료 후 버튼을 눌러주세요 *   
-        br
-        br
-        div
-            p 금액 : #{payment}원
-        br
+            h5  
+                |예금주 : #{a.accountadmin} 
+                br
+                |  #{a.accountbank} #{a.accountnumber}
+            br
+            p   * 위의 계좌번호로 입금 완료 후 버튼을 눌러주세요 *   
+            br
+            br
+            div
+                p 금액 : #{payment}원
+            br
+
 
     div
     br

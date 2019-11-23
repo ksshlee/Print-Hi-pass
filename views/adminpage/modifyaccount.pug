@@ -1,0 +1,21 @@
+extends ../partials/layout
+
+
+block content
+    form(action="/fix_account"+account._id method='post')
+        fieldset
+            label(for="accountnumber") 계좌번호
+            input#accountnumber(type="text" name="accountnumber" value=account.accountnumber)
+            br
+            label(for="accountadmin") 계좌주인
+            input#accountadmin(type="text" name="accountadmin" value=account.accountadmin)
+            br
+            label(for="accountbank") 계좌은행
+            input#accountbank(type="text" name="accountbank" value=account.accountbank)
+            br
+            label(for="adminplace") 관리자 위치
+            input#adminplace(type="text" name="adminplace" value=account.adminplace)
+            br
+            br
+            br
+            button(type='submit') 올리기

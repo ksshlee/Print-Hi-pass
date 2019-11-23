@@ -177,7 +177,6 @@ router.get('/delete:id', isAdmin, async function(req, res, next){
 
 //제본검색
 router.post('/search', async function(req,res,next){
-  console.log('hi')
   var books = await Book.find({title:req.body.search})
   if (books == null){
     req.flash('danger','검색하신 책 제목이 없습니다');
