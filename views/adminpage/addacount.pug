@@ -1,21 +1,38 @@
 extends ../partials/layout
 
+block contenthead
+    style.
+
+        form {
+            text-align : center;
+            font-weight: bold; 
+            width : 200px;
+            float : none; 
+            margin : 0 auto;
+        }
 
 block content
     form(action="/add_account" method='post')
         fieldset
-            label(for="accountnumber") 계좌번호
-            input#accountnumber(type="text" name="accountnumber")
-            br
-            label(for="accountadmin") 계좌주인
-            input#accountadmin(type="text" name="accountadmin")
-            br
-            label(for="accountbank") 계좌은행
-            input#accountbank(type="text" name="accountbank")
-            br
-            label(for="adminplace") 관리자 위치
-            input#adminplace(type="text" name="adminplace")
             br
             br
+            div
+                label(for="accountnumber") 계좌번호
+                input#accountnumber(type="text" placeholder="숫자만 입력해주세요"  "accountnumber")
             br
-            button(type='submit') 올리기
+            div
+                label(for="accountadmin") 예금주명
+                input#accountadmin(type="text" placeholder="ex)김명지" name="accountadmin")
+            br
+            div
+                label(for="accountbank") 계좌은행
+                input#accountbank(type="text" placeholder="ex)하나은행" name="accountbank")
+            br
+            div
+                label(for="adminplace") 관리자 위치
+                input#adminplace(type="text" placeholder="ex)5공학관" name="adminplace")
+            br
+            div
+                button.btn.btn-secondary(type='submit') 올리기
+            br
+

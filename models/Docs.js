@@ -17,7 +17,8 @@ var docsSchema = Schema({ // 1
     sheetpage:{type:Number},
     rsv_date:{type:String},
     time_frop:{type:String},
-    file_name:{type:String}
+    file_name:{type:String},
+    print_place:{type:String}
 
   },{
     toObject:{virtuals:true} // 4
