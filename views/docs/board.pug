@@ -29,6 +29,7 @@ block content
         thead.thead-dark
             tr
             th(scope='col') NO.
+            th(scope='col') ID
             th(scope='col') 흑백/컬러
             th(scope='col') 가로/세로
             th(scope='col') 양면/단면
@@ -47,6 +48,7 @@ block content
         each d, num in docs
             tr
             td(scope="row")=num+1
+            td(scope="row")=d.auth_id
                 if d.colorchoice=="color" 
                     td 컬러
                 else

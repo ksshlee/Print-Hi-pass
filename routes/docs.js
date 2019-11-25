@@ -273,9 +273,13 @@ try {
 
 
 
+
+
+
   //에러 없으면 디비에 저장
   new_doc = new Doc({
     auth : req.user._id,
+    auth_id : req.user.id,
     content : req.body.content,
     colorchoice : req.body.colorchoice,
     direction : req.body.directionchoice,
@@ -290,7 +294,17 @@ try {
   });
   console.log(new_doc);
 
-
+  // var id;
+  // User.findById(req.user._id, function(err, user){
+  //   for(var i=0; i<user.count(); i++){
+  //     if(req.user._id == user._id){
+  //       id = user.id;
+  //       break;
+  //     }
+  //   }
+    
+  //   console.log("id : " + id);
+  // });
 
   //노드 추가
   // var LinkedList = new LinkedList();

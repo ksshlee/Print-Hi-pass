@@ -6,6 +6,7 @@ const Schema = mongoose.Schema;
 //schema
 var docsSchema = Schema({ // 1
     auth:{type:String},
+    auth_id:{type:String},
     content:{type:String},
     colorchoice:{type:String},
     direction:{type:String},
