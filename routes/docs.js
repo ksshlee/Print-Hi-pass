@@ -342,9 +342,6 @@ router.get("/board/:id",isLoggedIn, function(req, res){
 //show
 router.get("/show/:id",isLoggedIn, function(req,res){
   Doc.findById(req.params.id, function(err, doc){
-    // console.log(req.params.id);
-    // console.log(doc.auth);
-    // console.log(req.user._id);
     if(doc.auth != req.user._id){
       req.flash('danger', '잘못된 접근입니다!');
       return res.redirect('/docs/board');
@@ -439,4 +436,3 @@ router.get('/delete/:id', isAdmin, async function(req, res, next){
 });
   
 module.exports = router;
-  

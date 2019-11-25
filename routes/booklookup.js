@@ -1,6 +1,7 @@
 var express = require('express');
 var router = express.Router();
 var Book=require("../models/Books");
+var Account = require('../models/Account');
 var errorCatcher = require('../lib/async-error'); 
 var { isLoggedIn, isNotLoggedIn, isAdmin} = require('./middlewares');
 
@@ -92,32 +93,62 @@ router.get('/reserve:id',isLoggedIn, function(req,res){
 
 
 //제본예약
-router.post('/reserve:id',isLoggedIn, async function(req,res){
-  console.log('hi')
-  console.log(req.params)
-  Book.findById(req.params.id, function(err, books){
-    if(books.num_rsv+Number(req.body.count)>books.stock){
-      req.flash('fail', '잔여량보다 더 많은 양을 예약했어용');
-      return res.render('booklookup/reserve', {books:books});
-    }
-    books.num_rsv+=Number(req.body.count);
-    console.log(books.num_rsv);
+let book={};
+let up_book = {};
+var count = {};
 
-    //num_rsv를 업데이트하는 작업
-    let book={};
-    book.num_rsv = books.num_rsv;
-    let up_book = {_id:books._id};
-    Book.update(up_book, book, function(err){
-      if(err){
-        console.log(err);
-        return;
-      } else {
-        req.flash('success', '예약 완료!!');
-      }
-    });
-  });
-  res.redirect('/booklookup');
+
+router.post('/reserve:id',isLoggedIn, async function(req,res){
+  //파람에 id 값으로 해당 제본 불러오기
+  var books = await Book.findById(req.params.id);
+
+
+
+  //재고보다 더 많이 예약했으면 경고후 redirect
+  if(books.num_rsv+Number(req.body.count)>books.stock){
+    req.flash('danger', '잔여량보다 더 많은 양을 예약했어용');
+    return res.redirect('/booklookup');
+  }
+
+
+  books.num_rsv+=Number(req.body.count);
+
+  //num_rsv를 업데이트하는 작업
+  book.num_rsv = books.num_rsv;
+  up_book._id = books._id;
+
+  
+  //카운트수를 count라는곳에 저장,,
+  count.counts = req.body.count;
+
+  ///pay로 redirect!
+  res.redirect('/booklookup/pay?key='+req.params.id);
 });
+
+
+//결제 창으로 보내기
+router.get('/pay' , isLoggedIn, async function(req,res){
+  var book = await Book.findById(req.query.key);
+  var total_price = Number(book.price) * Number(count.counts);
+  var account = await Account.find({adminplace:book.place});
+  res.render('booklookup/pay' , {account:account, total_price:total_price});
+});
+
+
+//송금완료 버튼 누르면 저장!!
+router.get('/savedoc', isLoggedIn, async function(req,res){
+  Book.update(up_book, book, function(err){
+    if(err){
+      console.log(err);
+      return;
+    }
+  });  
+
+  req.flash('success', '예약 완료!!');
+
+  res.redirect("/booklookup");
+});
+
 
 
 //제본 수정 관리자한테만
