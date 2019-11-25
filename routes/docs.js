@@ -167,10 +167,10 @@ router.get("/savedoc",isLoggedIn,errorCatcher(async(req,res,next) => {
 
 //board
 router.get("/board",isLoggedIn,async function(req,res){
-  
   //키값 확인
   key=req.query.key;
-  
+  console.log(req)
+
   var docs = await Doc.find({print_place:key}).sort({'time_frop': 1});
   //LinkedList = new LinkedList();
   //LinkedList.append(docs.author,docs.content,docs.colorchoice,docs.direction,docs.checkside,docs.page,docs.payment,docs.count,docs.sheetpage,docs.time_frop);
@@ -284,8 +284,8 @@ try {
 
   //에러 없으면 디비에 저장
   new_doc = new Doc({
-    auth : req.user._id,
     auth_id : req.user.id,
+    auth_phonenum : req.user.phone,
     content : req.body.content,
     colorchoice : req.body.colorchoice,
     direction : req.body.directionchoice,

@@ -30,6 +30,8 @@ block content
             tr
             th(scope='col') NO.
             th(scope='col') ID
+            if (user.permission == 1)
+                th(scope='col') 전화번호
             th(scope='col') 흑백/컬러
             th(scope='col') 가로/세로
             th(scope='col') 양면/단면
@@ -49,33 +51,37 @@ block content
             tr
             td(scope="row")=num+1
             td(scope="row")=d.auth_id
-                if d.colorchoice=="color" 
-                    td 컬러
-                else
-                    td 흑백
-                if d.sidechoice=="height"
-                    td 세로
-                else
-                    td 가로
-                if d.directionchoice=="one_side"
-                    td 단면
-                else
-                    td 양면
-                    
-                td=d.time_frop
-                td=d.content
+
+            if (user.permission == 1)
+                td=d.auth_phonenum
+
+            if d.colorchoice=="color" 
+                td 컬러
+            else
+                td 흑백
+            if d.sidechoice=="height"
+                td 세로
+            else
+                td 가로
+            if d.directionchoice=="one_side"
+                td 단면
+            else
+                td 양면
+                
+            td=d.time_frop
+            td=d.content
+            td
+                a(href='/docs/board/'+d._id)  ✎ 
+            //✍ 뭐가 더 예쁜지 봐주쎄용
+            // 권한이 1 이면 ( admin) 버튼 생성 
+            if (user.permission == 1)
+                td 
+                    input(type="checkbox")
+                // 수령완료 버튼
                 td
-                    a(href='/docs/board/'+d._id)  ✎ 
-                //✍ 뭐가 더 예쁜지 봐주쎄용
-                // 권한이 1 이면 ( admin) 버튼 생성 
-                if (user.permission == 1)
-                    td 
-                        input(type="checkbox")
-                    // 수령완료 버튼
-                    td
-                        input(type="checkbox")
-                    // 삭제 버튼
-                    td 
-                        a(href='/docs/delete/'+d._id) 삭제
+                    input(type="checkbox")
+                // 삭제 버튼
+                td 
+                    a(href='/docs/delete/'+d._id) 삭제
     br
     
