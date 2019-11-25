@@ -44,6 +44,37 @@ router.post('/search', isAdmin,async function(req,res,next){
 });
 
 
+function validAccountForm (form){
+  var accnum = form.accountnumber || "";
+  var accadmin = form.accountadmin || "";
+  var accbank = form.accountbank || "";
+  var place = form.adminplace || "";
+
+  if (!accnum){
+    return "계좌번호를 입력하세요";
+  }
+  else if(isNaN(accnum)){
+    return "계좌번호를 숫자로 입력하세요";
+  }
+
+  if (!accadmin){
+    return "계좌주를 입력하세요";
+  }
+
+  if (!accbank){
+    return "은행을 입력하세요";
+  }
+
+  if (!place){
+    return "인쇄실 장소를 입력하세요";
+  }
+
+  return null;
+}
+
+
+
+
 //admin 계좌정보 변경
 router.get('/view_account', isAdmin,async function(req,res,next){
   var account = await Account.find();
@@ -59,6 +90,12 @@ router.get('/addaccount', isAdmin,async function(req,res,next){
 
 //admin 계좌정보 추가 post방식으로 보낸거 받기
 router.post('/add_account', isAdmin,async function(req,res,next){
+  var err = validAccountForm(req.body);
+  if(err){
+    req.flash('danger', err);
+    return res.redirect('back');
+  }
+
   new_account = new Account({
     accountnumber : req.body.accountnumber,
     accountadmin : req.body.accountadmin,
@@ -89,6 +126,14 @@ router.get('/modify/:id', isAdmin, async function(req,res,next){
 //계좌 수정 post방식으롭 보낸거 받기
 router.post('/fix_account:id', async function(req,res){
   console.log('hi')
+
+  var err = validAccountForm(req.body);
+  if(err){
+    req.flash('danger', err);
+    return res.redirect('back');
+  }
+
+  
   let acc = {};
   acc.accountnumber = req.body.accountnumber,
   acc.accountadmin = req.body.accountadmin,

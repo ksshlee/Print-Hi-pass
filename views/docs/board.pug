@@ -7,7 +7,7 @@ block contenthead
     style.
 
         th{
-            font-size: 16px;
+            font-size: 14px;
             padding:4px;
             line-height: 35px;
         }
@@ -47,6 +47,7 @@ block content
         each d, num in docs
             tr
             td(scope="row")=num+1
+                
                 if d.colorchoice=="color" 
                     td 컬러
                 else
