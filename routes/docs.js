@@ -140,7 +140,7 @@ router.get("/", isLoggedIn, async function(req, res, next) {
 
 // New
 router.get("/new", isLoggedIn, function(req,res){
-  key= req.query.key
+  key= req.query.key;
   res.render("docs/new",{key:key});
 })
 
@@ -151,22 +151,27 @@ router.get("/pay", isLoggedIn, errorCatcher(async(req,res,next) => {
   var account = await Account.find({adminplace:req.query.key});
   console.log(account);
   payment = new_doc.payment
-  res.render("docs/pay",{account:account, payment:payment});
+  res.render("docs/pay",{account:account, payment:payment, key:key});
 }));
 
 
 //savedoc
 router.get("/savedoc",isLoggedIn,errorCatcher(async(req,res,next) => {
+  key = req.query.key;
   if (new_doc){
     await new_doc.save();
   }
-  res.redirect("/docs/board");
+  res.redirect("/docs?key="+key);
 }));
 
 
 //board
 router.get("/board",isLoggedIn,async function(req,res){
-  var docs = await Doc.find().sort({'time_frop': 1});
+  
+  //키값 확인
+  key=req.query.key;
+  
+  var docs = await Doc.find({print_place:key}).sort({'time_frop': 1});
   //LinkedList = new LinkedList();
   //LinkedList.append(docs.author,docs.content,docs.colorchoice,docs.direction,docs.checkside,docs.page,docs.payment,docs.count,docs.sheetpage,docs.time_frop);
   //console.log(LinkedList)
@@ -271,6 +276,7 @@ try {
   console.log(req.body);
   console.log('--------------');
 
+  key = req.query.key//키값 받아서 확인
 
 
   //에러 없으면 디비에 저장
@@ -286,7 +292,8 @@ try {
     payment : total_pay,
     rsv_date : req.body.rsv_date,
     time_frop : req.body.time_frop,
-    file_name : req.body.fileupload
+    file_name : req.body.fileupload,
+    print_place : key
   });
   console.log(new_doc);
 
@@ -296,8 +303,7 @@ try {
   // var LinkedList = new LinkedList();
   // LinkedList.append(req.session.user_id,req.body.content,req.body.colorchoice,req.body.directionchoice,req.body.sidechoice,req.body.page,total_pay,req.body.count,req.body.division,req.body.time_frop);
   
-  //명진당인지 5공인지 키값 저장
-  key=req.query.key
+
   req.flash('success', "글쓰기 성공");
   res.redirect("/docs/pay?key="+key);
   
