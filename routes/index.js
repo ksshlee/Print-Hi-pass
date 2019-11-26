@@ -89,7 +89,7 @@ router.get('/addaccount', isAdmin,async function(req,res,next){
 
 
 //admin 계좌정보 추가 post방식으로 보낸거 받기
-router.post('/add_account', isAdmin,async function(req,res,next){
+router.post('/addaccount', isAdmin,async function(req,res,next){
   var err = validAccountForm(req.body);
   if(err){
     req.flash('danger', err);
