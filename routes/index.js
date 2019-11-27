@@ -43,7 +43,12 @@ function remove(index){
 
 // 계좌번호 조회
 function find(accNum){
-  // for (int i=0; i<)
+  for (var i=0; i<ArrayList.length(); i++){
+    if (ArrayList[i][3].equals(accNum)){
+      return 1;
+    }
+  }
+  return 0;
 }
 
 /* main page. */
@@ -142,21 +147,28 @@ router.post('/addaccount', isAdmin,async function(req,res,next){
   // var accNum = req.body.accountnumber;
   // var accAdmin = req.body.accountadmin;
   // var accBank = req.body.accountbank;
-  // var adminPlace = req.body.adminPlace;
+  // var adminPlace = req.body.adminplace;
   // AccountList.append(accNum,accAdmin,accBank,adminPlace);
+  console.log(req.body.adminplace);
 
-  new_account = new Account({
-    accountnumber : req.body.accountnumber,
-    accountadmin : req.body.accountadmin,
-    accountbank : req.body.accountbank,
-    adminplace : req.body.adminplace
-  });
-
-  await new_account.save();
-  req.flash('success', '계좌정보 추가 완료');
-  res.redirect('/view_account')
-
-})
+  var acc = await Account.findOne({adminplace:req.body.adminplace});
+  if (acc){
+    req.flash('danger', '이미 계좌 등록된 인쇄실입니다');
+    return res.redirect('back');
+  }
+  else{
+    new_account = new Account({
+      accountnumber : req.body.accountnumber,
+      accountadmin : req.body.accountadmin,
+      accountbank : req.body.accountbank,
+      adminplace : req.body.adminplace
+    });
+  
+    new_account.save();
+    req.flash('success', '계좌정보 추가 완료');
+    res.redirect('/view_account')
+  }
+});
 
 //계좌삭제
 router.get('/delete_account/:id', isAdmin, async function(req,res,next){
