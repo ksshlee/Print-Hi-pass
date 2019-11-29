@@ -24,6 +24,11 @@ block contenthead
 
 
 block content
+
+    h1 현재 예약 대기자 수 : #{len}
+
+
+
     br
     table.table.table-sm
         thead.thead-dark
@@ -44,7 +49,7 @@ block content
                 th(scope='col') 삭제
             
 
-        
+        h1=docs.count
 
         tbody
         each d, num in docs

@@ -169,13 +169,13 @@ router.get("/savedoc",isLoggedIn,errorCatcher(async(req,res,next) => {
 router.get("/board",isLoggedIn,async function(req,res){
   //키값 확인
   key=req.query.key;
-  console.log(req)
-
   var docs = await Doc.find({print_place:key}).sort({'time_frop': 1});
   //LinkedList = new LinkedList();
   //LinkedList.append(docs.author,docs.content,docs.colorchoice,docs.direction,docs.checkside,docs.page,docs.payment,docs.count,docs.sheetpage,docs.time_frop);
   //console.log(LinkedList)
-  res.render("docs/board",{docs:docs, user:req.user});
+  len = docs.length // docs에 들어가 있는 값의 갯수
+  console.log(len)
+  res.render("docs/board",{docs:docs, user:req.user, len:len});
 })
 
 function validCreateForm (form){
