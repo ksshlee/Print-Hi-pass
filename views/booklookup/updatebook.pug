@@ -18,8 +18,10 @@ block content
                 br
                 br
                 div
-                    label(for="title") 인쇄실&nbsp;
-                    input#title(type="text" name="place")
+                label(for='place') 인쇄실 
+                    select#place(name='place')
+                        option(value='5공학관' selected='') 5공학관
+                        option(value='명진당') 명진당
                 br
                 div
                     label(for="title") 책 제목&nbsp;

@@ -297,7 +297,8 @@ try {
     rsv_date : req.body.rsv_date,
     time_frop : req.body.time_frop,
     file_name : req.body.fileupload,
-    print_place : key
+    print_place : key,
+    reserve_count : reserve_count+1
   });
   console.log(new_doc);
 

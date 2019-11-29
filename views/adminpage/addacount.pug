@@ -29,8 +29,10 @@ block content
                 input#accountbank(type="text" placeholder="ex)하나은행" name="accountbank")
             br
             div
-                label(for="adminplace") 관리자 위치
-                input#adminplace(type="text" placeholder="ex)5공학관" name="adminplace")
+                label(for='adminplace') 시트당 페이지 수 
+                    select#adminplace(name='adminplace')
+                        option(value='5공학관' selected='') 5공학관
+                        option(value='명진당') 명진당
             br
             div
                 button.btn.btn-secondary(type='submit') 올리기

@@ -19,7 +19,6 @@ var docsSchema = Schema({ // 1
     time_frop:{type:String},
     file_name:{type:String},
     print_place:{type:String}
-
   },{
     toObject:{virtuals:true} // 4
   });
