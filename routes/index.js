@@ -4,12 +4,58 @@ var User = require('../models/Users');
 var Account = require('../models/Account');
 var { isLoggedIn, isNotLoggedIn, isAdmin} = require('./middlewares');
 
+
+// 계좌번호 배열 선언
+var AccountList = Array(Array(), Array());
+
+
+// 계좌번호 추가
+function append(accNum, accAdmin, accBank, adminPlace){
+  // var index = AccountList.length()-1;
+  var buf = [accNum, accAdmin, accBank, adminPlace];
+  AccountList.push(buf);
+}
+
+
+// 계좌번호 삭제
+function remove(index){
+
+  if(index == 0){
+    // 배열의 첫 번째 요소 삭제
+    ArrayList.slice();
+    // return ArrayList;
+  }
+  else if(index == ArrayList.length()-1){
+    // 배열의 마지막 요소 삭제
+    ArrayList.pop();
+    // return ArrayList;
+  }
+  else{
+    // 배열의 중간 요소 삭제
+    var tmp = AccountList.splice(0, index);
+    tmp.pop(index);
+    ArrayList = tmp.concat(ArrayList);
+  }
+ return ArrayList;
+
+}
+
+
+// 계좌번호 조회
+function find(accNum){
+  for (var i=0; i<ArrayList.length(); i++){
+    if (ArrayList[i][3].equals(accNum)){
+      return 1;
+    }
+  }
+  return 0;
+}
+
 /* main page. */
 
 router.get('/', function(req, res){
   res.render('home/main');
 });
-
 
 
 
@@ -77,6 +123,7 @@ function validAccountForm (form){
 
 //admin 계좌정보 변경
 router.get('/view_account', isAdmin,async function(req,res,next){
+  // AccountList.find();
   var account = await Account.find();
   res.render('adminpage/viewaccount',{account:account});
 });
@@ -89,28 +136,44 @@ router.get('/addaccount', isAdmin,async function(req,res,next){
 
 
 //admin 계좌정보 추가 post방식으로 보낸거 받기
-router.post('/add_account', isAdmin,async function(req,res,next){
+router.post('/addaccount', isAdmin,async function(req,res,next){
+
   var err = validAccountForm(req.body);
   if(err){
     req.flash('danger', err);
     return res.redirect('back');
   }
 
-  new_account = new Account({
-    accountnumber : req.body.accountnumber,
-    accountadmin : req.body.accountadmin,
-    accountbank : req.body.accountbank,
-    adminplace : req.body.adminplace
-  });
+  // var accNum = req.body.accountnumber;
+  // var accAdmin = req.body.accountadmin;
+  // var accBank = req.body.accountbank;
+  // var adminPlace = req.body.adminplace;
+  // AccountList.append(accNum,accAdmin,accBank,adminPlace);
+  console.log(req.body.adminplace);
 
-  await new_account.save();
-  req.flash('success', '계좌정보 추가 완료');
-  res.redirect('/view_account')
-
-})
+  var acc = await Account.findOne({adminplace:req.body.adminplace});
+  if (acc){
+    req.flash('danger', '이미 계좌 등록된 인쇄실입니다');
+    return res.redirect('back');
+  }
+  else{
+    new_account = new Account({
+      accountnumber : req.body.accountnumber,
+      accountadmin : req.body.accountadmin,
+      accountbank : req.body.accountbank,
+      adminplace : req.body.adminplace
+    });
+  
+    new_account.save();
+    req.flash('success', '계좌정보 추가 완료');
+    res.redirect('/view_account')
+  }
+});
 
 //계좌삭제
 router.get('/delete_account/:id', isAdmin, async function(req,res,next){
+  // var index=0;
+  // AccountList.remove(index);
   await Account.findByIdAndDelete(req.params.id);
   res.redirect('/view_account');
 })
