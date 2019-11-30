@@ -21,15 +21,18 @@ block contenthead
             padding:8px;
             line-height: 50px;
         }
+        h6{
+            font-weight: 600;
+            text-align : right;
+            font-family : "Nanum Gothic", sans-serif;
+            color : #B40431;
+        }
 
 
 block content
-
-    h1 현재 예약 대기자 수 : #{len}
-
-
-
     br
+    h6.col-md-11 현재 예약 대기자 수 : #{len}&nbsp;&nbsp;&nbsp;
+
     table.table.table-sm
         thead.thead-dark
             tr
