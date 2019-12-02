@@ -1,15 +1,8 @@
 FROM node:12
-
-WORKDIR ./docker
-
-
-ADD . /docker
-
-
+COPY . .
 RUN npm install
-
-
 EXPOSE 8080
+WORKDIR /
 
 
-CMD ["nodemon"]
+CMD node app.js

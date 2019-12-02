@@ -298,7 +298,7 @@ try {
     time_frop : req.body.time_frop,
     file_name : req.body.fileupload,
     print_place : key,
-    reserve_count : reserve_count+1
+    // reserve_count : reserve_count+1
   });
   console.log(new_doc);
 
@@ -337,18 +337,6 @@ router.get("/board/:id",isLoggedIn, function(req, res){
       return res.redirect('/docs/board');
     }
     return res.render('../views/docs/edit',  { doc:doc});
-  });
-
-});
-
-//show
-router.get("/show/:id",isLoggedIn, function(req,res){
-  Doc.findById(req.params.id, function(err, doc){
-    if(doc.auth != req.user._id){
-      req.flash('danger', '잘못된 접근입니다!');
-      return res.redirect('/docs/board');
-    }
-    return res.render('../views/docs/show',  { doc:doc});
   });
 
 });
@@ -426,15 +414,17 @@ router.post('/board/:id', upload.array('photo',1),async function(req, res){
       return;
     } else {
       req.flash('success', '글 수정!');
-      res.redirect('/docs/board');
+      res.redirect('/docs/board/'+req.params.id);
     }
   });
 });
 
 //delete
 router.get('/delete/:id', isAdmin, async function(req, res, next){
+  console.log('hi')
+  console.log(req.params.id)
   await Doc.findByIdAndDelete(req.params.id);
-  res.redirect('/docs/board');
+  res.redirect('/docs');
 });
   
 module.exports = router;
