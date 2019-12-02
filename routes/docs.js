@@ -419,11 +419,10 @@ router.post('/board/:id', upload.array('photo',1),async function(req, res){
 });
 
 //delete
-router.get('/delete/:id', isAdmin, async function(req, res, next){
-  console.log('hi')
-  console.log(req.params.id)
-  await Doc.findByIdAndDelete(req.params.id);
-  res.redirect('/docs');
+router.get('/delete/:id', async function(req, res, next){
+  var key =await Doc.findByIdAndDelete(req.params.id);
+  res.redirect('/docs?key='+key.print_place);
 });
+
   
 module.exports = router;
