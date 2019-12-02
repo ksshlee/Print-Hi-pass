@@ -178,6 +178,7 @@ router.post('/modify:id', async function(req, res){
   book.professor = req.body.professor;
   book.price = req.body.price;
   book.stock = req.body.stock;
+  book.num_rsv = req.body.num_rsv;
   
 
   console.log(book);

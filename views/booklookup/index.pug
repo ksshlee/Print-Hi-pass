@@ -57,6 +57,7 @@ block content
                 if (user.permission == 2)
                     th(scope='col') 구매하기
                 if (user.permission == 1)
+                    th(scope='col') 예약자 수
                     th(scope='col') 수정하기
                     th(scope='col') 삭제하기
 
@@ -74,6 +75,7 @@ block content
                             a.buy(href='/booklookup/reserve'+b._id) 🛒
 
                     if (user.permission == 1)
+                        td=b.num_rsv
                         td
                             a(href='/booklookup/modify'+b._id) 수정
                         td
