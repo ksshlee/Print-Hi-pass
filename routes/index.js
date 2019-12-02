@@ -72,7 +72,7 @@ router.get('/adminmain', isAdmin, async function(req,res,next){
 
 //admin 회원 목록 페이지
 router.get('/adminuser', isAdmin,async function(req, res, next) {
-  var alluser = await User.find();
+  var alluser = await User.find().sort("name");
   res.render('adminpage/adminuser', {user:req.user, alluser:alluser});
 });
 
