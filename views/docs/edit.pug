@@ -99,6 +99,17 @@ block content
                     div
                         textarea#content(name="content", cols="50", rows="5")=doc.content
 
+
+                //- 예약 장소 변경
+                div
+                    label(for='print_place') 시트당 페이지 수 
+                        select#print_place(name='print_place')
+                            option(value='5공학관' selected=doc.print_place=='5공학관') 5공학관
+                            option(value='명진당' selected=doc.print_place=='명진당') 명진당
+                br
+
+
+
                 div
                     br
                     button.btn.btn-info(type='submit') submit

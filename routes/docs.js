@@ -128,7 +128,6 @@ const storage = multer.diskStorage({
 //Index
 router.get("/", isLoggedIn, async function(req, res, next) {
   key = req.query.key//키값 받아서 확인
-  console.log(key)
   if (key == "5공학관"){
     title="welcome! 5공학관 인쇄실!"
   }
@@ -327,7 +326,6 @@ try {
 
 // edit
 router.get("/board/:id",isLoggedIn, function(req, res){
-  console.log(req)
   Doc.findById(req.params.id, function(err, doc){
     // console.log(req.params.id);
     // console.log(doc.auth);
@@ -403,6 +401,7 @@ router.post('/board/:id', upload.array('photo',1),async function(req, res){
   doc.payment = total_pay;
   doc.rsv_date = req.body.rsv_date;
   doc.time_frop = req.body.time_frop;
+  doc.print_place = req.body.print_place;
 
   console.log(doc);
 
@@ -414,7 +413,7 @@ router.post('/board/:id', upload.array('photo',1),async function(req, res){
       return;
     } else {
       req.flash('success', '글 수정!');
-      res.redirect('/docs/board/'+req.params.id);
+      res.redirect('/docs?key='+req.body.print_place);
     }
   });
 });
