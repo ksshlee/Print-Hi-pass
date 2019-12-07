@@ -329,10 +329,10 @@ router.get("/board/:id",isLoggedIn, function(req, res){
   Doc.findById(req.params.id, function(err, doc){
     // console.log(req.params.id);
     // console.log(doc.auth);
-    // console.log(req.user._id);
+    // console.log(req.user.id);
     if(doc.auth_id != req.user.id){
       req.flash('danger', '잘못된 접근입니다!');
-      return res.redirect('/docs/board');
+      return res.redirect('back');
     }
     return res.render('../views/docs/edit',  { doc:doc});
   });

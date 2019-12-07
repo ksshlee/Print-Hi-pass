@@ -196,8 +196,13 @@ router.post('/fix_account:id', async function(req,res){
     return res.redirect('back');
   }
 
-  
-  let acc = {};
+  var acc = await Account.findOne({adminplace:req.body.adminplace});
+  if (acc){
+    req.flash('danger', '이미 계좌 등록된 인쇄실입니다');
+    return res.redirect('back');
+  }
+  else{
+    let acc = {};
   acc.accountnumber = req.body.accountnumber,
   acc.accountadmin = req.body.accountadmin,
   acc.accountbank = req.body.accountbank,
@@ -214,6 +219,8 @@ router.post('/fix_account:id', async function(req,res){
       res.redirect('/view_account');
     }
   });
+  }
+  
 });
 
 
@@ -253,7 +260,7 @@ router.get('/manual', function(req,res,next){
 router.get('/delete:id', isLoggedIn, async function(req, res, next){
   console.log('hi');
   await User.findByIdAndDelete(req.params.id);
-  res.redirect('back');
+  res.redirect('/adminuser');
 });
 
 
