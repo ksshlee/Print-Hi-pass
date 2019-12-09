@@ -180,6 +180,7 @@ router.get('/delete_account/:id', isAdmin, async function(req,res,next){
 
 //계좌수정
 router.get('/modify/:id', isAdmin, async function(req,res,next){
+  console.log('kya');
   Account.findById(req.params.id, function(err,account){
     return res.render('adminpage/modifyaccount', {account:account})
   });
@@ -196,13 +197,8 @@ router.post('/fix_account:id', async function(req,res){
     return res.redirect('back');
   }
 
-  var acc = await Account.findOne({adminplace:req.body.adminplace});
-  if (acc){
-    req.flash('danger', '이미 계좌 등록된 인쇄실입니다');
-    return res.redirect('back');
-  }
-  else{
-    let acc = {};
+    
+  let acc = {};
   acc.accountnumber = req.body.accountnumber,
   acc.accountadmin = req.body.accountadmin,
   acc.accountbank = req.body.accountbank,
@@ -219,7 +215,7 @@ router.post('/fix_account:id', async function(req,res){
       res.redirect('/view_account');
     }
   });
-  }
+  
   
 });
 
